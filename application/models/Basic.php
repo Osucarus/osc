@@ -27,6 +27,17 @@ Class Basic extends CI_Model {
 		return $hasil;
 	}
 	
+	function getLatestLyEntry(){
+		$kueri = "select \"no\" from layanan order by \"no\" desc limit 1";
+		$hasil = $this->db->query($kueri);
+		if($hasil->num_rows() > 0) {
+			$hasil = $hasil->result();
+			return $hasil[0]->no;
+		}else{
+			return 0;
+		}
+	}
+	
 	function kueriToJson($kueri){
 		$has = $this->db->query($kueri);
 		$has = $has->result();
@@ -41,26 +52,48 @@ Class Basic extends CI_Model {
 	}
 	
 	function insertBuilder($dbname,$arr){
-		$preval = "";
-		$postval = "";
-		foreach($arr as $ar => $val){
-			$preval .= "$ar,";
-			$postval .= "'$val',";
-		}
-		$preval = substr($preval,0,-1);
-		$postval = substr($postval,0,-1);
-		$resString = "insert into $dbname($preval) values ($postval)";
-		return $resString;
-	}
+        $preval = "";
+        $postval = "";
+        foreach($arr as $ar => $val){
+            $preval .= "$ar,";
+            $postval .= "'$val',";
+        }
+        $preval = substr($preval,0,-1);
+        $postval = substr($postval,0,-1);
+        $resString = "insert into $dbname($preval) values ($postval)";
+        return $resString;
+    }
+    
+    function updateBuilder($dbname,$arr,$condition){
+        $postset = "";
+        foreach($arr as $ar => $val){
+            $postset .= "$ar = '$val',";
+        }
+        $postset = substr($postset,0,-1);
+        $res = "upadate $dbname set $postset where $condition";
+        return $res;
+    }
 	
-	function updateBuilder($dbname,$arr,$condition){
-		$postset = "";
-		foreach($arr as $ar => $val){
-			$postset .= "$ar = '$val',";
+	function tableBuilder($db, $replacer = null){
+		echo "<table>";
+		$i = 0;
+		foreach($db as $d) {
+			echo "<tr>";
+			$d = (array) $d;
+			if ($i == 0){
+				echo "<tr>";
+				foreach($d as $key => $value){
+					echo "<td>$key</td>";
+				}
+				echo "<tr>";
+			}
+			foreach($d as $val){
+				echo "<td>$val</td>";
+			}
+			$i += 1;
+			echo"</tr><br>";
 		}
-		$postset = substr($postset,0,-1);
-		$res = "upadate $dbname set $postset where $condition";
-		return $res;
+		echo "<table";
 	}
 	
 } ?>

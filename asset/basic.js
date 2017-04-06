@@ -4,13 +4,13 @@ function reverseDate(x){
 	return hasil;
 }
 
-function classVal2Json(className){
-	var hasil = "{";
-		$(className).each(function(){
-			hasil+= "\""+$(this).attr('id')+"\" : \""+$(this).val()+"\",";
-		});
-		hasil = hasil.slice(',',-1);
-		hasil += "}";
-		hasil = JSON.parse(hasil);
-		return hasil;
+function classValueToJson(className){
+    var hasil = "{";
+        $(className).each(function(){
+            hasil+= "\""+$(this).attr('id')+"\" : \""+$(this).val()+"\",";
+        });
+        hasil = hasil.slice(',',-1);
+        hasil += "}";
+        hasil = JSON.parse(hasil);
+        return hasil;
 	}

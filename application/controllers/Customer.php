@@ -3,40 +3,41 @@ class Customer extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
-		$this->load->view('dependency.php');
-		$this->load->model('Basic','bas');
+		$this->load->model('Obj_customer', 'cs');
+		$this->load->model('Basic', 'bs');
+		$this->load->view('Loader');
 	}
 	
 	public function index(){
-		$this->load->model('Mcustomer', 'cs');
-		echo "success";
+		$data = $this->cs->getAll();
+		$this->bs->tableBuilder($data);
 	}
 	
-	public function insert(){
+	public function form(){
+		$this->load->view('Customer/form');
+	}
+	
+	public function view(){
+		/*$data['mode'] = "view";
+		$data['db'] = $this->cs->getById(1);
+		$data['db'] = $data['db'][0];
+		$data['db'] = (array) $data['db'];*/
 		
+		$data['db'] = $this->cs->getAll();
+		$this->load->view('Customer/table', $data);
 	}
 	
 	public function update(){
-		$this->load->view('Customer/form_customer');
 	}
 	
-	public function submit(){
+	public function del(){
+	}
+	
+	public function insert(){
+		echo var_dump($_POST);
+		$kue = $this->bs->insertBuilder('customer',$_POST);
+		echo $this->db->query($kue);
 		
-	}
-	
-	public function array_key(){
-		$coba = array(	'oke1' => 'nilai1' , 
-						'oke2' => 'nilai2',
-						'oke3' => 'nilai5');
-		$hasil = $this->bas->updateBuilder("coba",$coba,"oke2 = 'kuampret' and oke1 = 'ganteng'");
-		var_dump($hasil);
-	}
-	
-	public function jajal(){
-		$total_rows = 156;
-		$per_page = 25;
-		$result = 156 % 25;
-		var_dump($result+1);
-		
+		//$this->cs->query()
 	}
 }
