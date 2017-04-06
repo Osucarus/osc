@@ -1,9 +1,26 @@
 <script>
+<?php 
+$edit = isset($db);
+if ($edit){
+	$uri = "update";
+}else{
+	$uri = "insert";
+}
+?>
 $(document).ready(function (){ 
 	$('#submit').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
-		var uri = "<?php echo site_url() . "/customer/insert"?>";
-		var data_insert = classValueToJson('.inputan');
+		var uri = "<?php echo site_url() . "/customer/" . $uri?>";
+		//var data_insert = classValueToJson('.inputan');
+		<?php
+		if ($edit){
+			echo "var data_insert = {};";
+			echo "data_insert['db'] = classValueToJson('.inputan');";
+			echo "data_insert['id'] = " . $db['id'] . ";";
+		}else{
+			echo "var data_insert = classValueToJson('.inputan');";
+		}
+		?>
 		$.post(uri, data_insert, function(data, status){
 			$('#display').html(data); // Dihapus ntar di final
 		});
@@ -11,7 +28,7 @@ $(document).ready(function (){
 		
 	
 	<?php
-	if (isset($db)){
+	if ($edit){
 		foreach ($db as $key => $value) {
 			echo "$('#$key').val('$value');";
 		}
@@ -19,7 +36,7 @@ $(document).ready(function (){
 	?>
 	
 	// Debugger biar gak mager ngisi
-	if (true){
+	if (false){
 		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		$('.inputan').each(function(){
 			var text = "";
@@ -46,4 +63,5 @@ $(document).ready(function (){
 <tr><td colspan='3'><button type="submit" id="submit">Submit</button></td></tr>
 </table>
 </form>
+<div id="display"></div>
 

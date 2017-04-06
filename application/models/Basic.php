@@ -64,36 +64,56 @@ Class Basic extends CI_Model {
         return $resString;
     }
     
-    function updateBuilder($dbname,$arr,$condition){
+    function updateBuilder($dbname, $arr, $condition = null){
         $postset = "";
         foreach($arr as $ar => $val){
             $postset .= "$ar = '$val',";
         }
         $postset = substr($postset,0,-1);
-        $res = "upadate $dbname set $postset where $condition";
+        $res = "update $dbname set $postset where $condition";
         return $res;
     }
 	
-	function tableBuilder($db, $replacer = null){
+	function tableBuilder($db, $edit = false, $replacer = null){
 		echo "<table>";
 		$i = 0;
 		foreach($db as $d) {
-			echo "<tr>";
-			$d = (array) $d;
+			// Header
 			if ($i == 0){
-				echo "<tr>";
+				$j = 0;
+				echo "<thead><tr>";
 				foreach($d as $key => $value){
-					echo "<td>$key</td>";
+					if (isset($replacer) && isset($replacer[$key])){
+						$key = $replacer[$key];
+					}
+					if ($j == 1){
+						echo "<td>Edit</td><td>$key</td>";
+					}else{
+						echo "<td>$key</td>";
+					}
+					$j += 1;
 				}
-				echo "<tr>";
+				echo "</tr></thead><tbody>";
 			}
-			foreach($d as $val){
-				echo "<td>$val</td>";
+			
+			// Isi
+			$j = 0;
+			echo "<tr>";
+			foreach($d as $key => $val){
+				if ($j == 0){
+					$no = $i + 1;
+					echo "<td class='isitabel-$i' id='$key-$i' actualid='$val'>$no</td>";
+				}else if ($j == 1){
+					echo "<td><button class='tombol' id='tombol-ke-$i'>Edit</button><td class='isitabel-$i' id='$key-$i'>$val</td>";
+				}else{
+					echo "<td class='isitabel-$i' id='$key-$i'>$val</td>";
+				}
+				$j += 1;
 			}
+			echo"</tr>";
 			$i += 1;
-			echo"</tr><br>";
 		}
-		echo "<table";
+		echo "</tbody><table>";
 	}
 	
 } ?>

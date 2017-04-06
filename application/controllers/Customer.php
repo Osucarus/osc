@@ -9,35 +9,28 @@ class Customer extends CI_Controller {
 	}
 	
 	public function index(){
-		$data = $this->cs->getAll();
-		$this->bs->tableBuilder($data);
 	}
 	
 	public function form(){
-		$this->load->view('Customer/form');
+		$this->load->view('Customer/form', $_POST);
 	}
 	
 	public function view(){
-		/*$data['mode'] = "view";
-		$data['db'] = $this->cs->getById(1);
-		$data['db'] = $data['db'][0];
-		$data['db'] = (array) $data['db'];*/
-		
 		$data['db'] = $this->cs->getAll();
 		$this->load->view('Customer/table', $data);
 	}
 	
 	public function update(){
+		$where = "id = " . $_POST['id'];
+		$kue = $this->bs->updateBuilder('customer',$_POST['db'],$where);
+		$this->db->query($kue);
 	}
 	
 	public function del(){
 	}
 	
 	public function insert(){
-		echo var_dump($_POST);
 		$kue = $this->bs->insertBuilder('customer',$_POST);
 		echo $this->db->query($kue);
-		
-		//$this->cs->query()
 	}
 }
