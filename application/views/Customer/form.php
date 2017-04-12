@@ -11,7 +11,6 @@ $(document).ready(function (){
 	$('#submit').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
 		var uri = "<?php echo site_url() . "/customer/" . $uri?>";
-		//var data_insert = classValueToJson('.inputan');
 		<?php
 		if ($edit){
 			echo "var data_insert = {};";

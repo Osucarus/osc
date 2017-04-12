@@ -8,8 +8,9 @@
 
 <form id='contract_form'>
 <table>
-<tr><td>Site Name</td><td>:</td><td><input class='inputan' type="text" id="name"></td></tr>
+<tr><td>Site Name</td><td>:</td><td><input class='inputan' type="text" id="sitename"></td></tr>
 <tr><td>Customer ID</td><td>:</td><td><input class='inputanx' list="CustomerList" id="customer"></td></tr>
+<tr><td>Name</td><td>:</td><td><input class='inputan' type="text" id="name"></td></tr>
 <tr><td>Origin</td><td>:</td><td><input class='inputan' type="text" id="origin"></td></tr>
 <tr><td>Destination</td><td>:</td><td><input class='inputan' type="text" id="destination"></td></tr>
 <tr><td>Group ID</td><td>:</td><td><input class='aidi' type="text" id="group"></td></tr>
@@ -26,7 +27,7 @@
 <input hidden id="group_id" class="inputan">
 <input hidden id="product_id" class="inputan">
 <input hidden id="service_id" class="inputan">
-
+<input type="submit" value="Submit">
 </form>
 
 <datalist id="CustomerList">

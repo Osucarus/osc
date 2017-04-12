@@ -5,8 +5,8 @@ class Contract extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
-		$this->load->model('Basic','bas');
-		$this->load->view('dependency.php');
+		$this->load->model('Basic','bs');
+		$this->load->view('Loader.php');
 	}
 	
 	function form(){
@@ -35,5 +35,19 @@ class Contract extends CI_Controller {
 		$this->load->view('Contract/contract_form',$data);
 	}
 	
+	function generate(){
+		$delkue = "delete from contract";
+		$this->db->query($delkue);
+		for ($i = 1; $i < 101; $i++){
+			$build = array(
+				"name" => "Customer $i",
+				"customer_id" => rand(5,104),
+				"rfs" => "now()",
+				"period" => rand(1,10)." years",
+			);
+			$kue = $this->bs->insertBuilder('contract',$build);
+			echo $this->db->query($kue);
+		}
+	}
 }
 ?>

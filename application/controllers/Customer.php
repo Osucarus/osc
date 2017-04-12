@@ -33,4 +33,25 @@ class Customer extends CI_Controller {
 		$kue = $this->bs->insertBuilder('customer',$_POST);
 		echo $this->db->query($kue);
 	}
+	
+	public function generate(){
+		$delkue = "delete from customer";
+		$this->db->query($delkue);
+		for ($i = 1; $i < 101; $i++){
+			$build = array(
+				"name" => "Customer $i",
+				"address" => "Address $i",
+				"npwp" => "npwp $i",
+				"nob" => "nob $i",
+				"phone" => "phone $i",
+				"fax" => "fax $i",
+				"mobile" => "mobile $i",
+				"email" => "email $i",
+				"officer" => "officer $i",
+				"designation" => "npwp $i",
+			);
+			$kue = $this->bs->insertBuilder('customer',$build);
+			$this->db->query($kue);
+		}
+	}
 }
