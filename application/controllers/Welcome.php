@@ -22,4 +22,12 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+	
+	public function coba(){
+		$tulisan = "Coba rot13";
+		$tulisan13 = str_rot13($tulisan);
+		$tulisan2 = str_rot13($tulisan13);
+		echo "hasil rot13 = ".$tulisan13;
+		echo "balikin rot13 = ".$tulisan2;
+	}
 }

@@ -1,0 +1,80 @@
+CREATE TABLE contract
+(
+  id serial NOT NULL,
+  customer_id integer,
+  name character varying,
+  group_id integer,
+  product_id integer,
+  service_id integer,
+  origin character varying,
+  destination character varying,
+  tao character varying,
+  connection character varying,
+  bw_access numeric,
+  bw_cir numeric,
+  bw_burst numeric,
+  remarks character varying,
+  period interval
+);
+
+CREATE TABLE customer
+(
+  id serial NOT NULL,
+  name character varying,
+  address character varying,
+  npwp character varying,
+  nob character varying,
+  phone character varying,
+  fax character varying,
+  mobile character varying,
+  email character varying,
+  officer character varying,
+  designation character varying
+);
+
+Create Table project (
+	id serial,
+	contract_id integer,
+	name character varying,
+	start timestamp without timezone,
+	finish timestamp without timezone,
+	status character varying
+);
+
+Create table circuit(
+	no serial,
+	id character varying,
+	project_id integer,
+	name character varying,
+	ip character varying
+);
+
+Create table project_documents(
+	id serial,
+	project_id numeric,
+	description character varying,
+	link character varying,
+	doctype numeric
+);
+
+create table master_doctype(
+	id serial,
+	name character varying
+);
+
+Create table components(
+	id serial,
+	location_id numeric,
+	name character varying,
+	description character varying,
+	nominal numeric,
+	nominal_measure character varying
+);
+
+Create table eventlog(
+	id_log serial,
+	circuit_id character varying,
+	status character varying,
+	status_int integer,
+	datetime timestamp without time zone
+);
