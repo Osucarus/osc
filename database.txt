@@ -1,11 +1,11 @@
 CREATE TABLE contract
 (
   id serial NOT NULL,
-  customer_id numeric,
+  customer_id integer,
   name character varying,
-  group_id numeric,
-  product_id numeric,
-  service_id numeric,
+  group_id integer,
+  product_id integer,
+  service_id integer,
   origin character varying,
   destination character varying,
   tao character varying,
@@ -34,7 +34,8 @@ CREATE TABLE customer
 
 Create Table project (
 	id serial,
-	contract_id numeric,
+	contract_id integer,
+	name character varying,
 	start timestamp without timezone,
 	finish timestamp without timezone,
 	status character varying
@@ -43,7 +44,8 @@ Create Table project (
 Create table circuit(
 	no serial,
 	id character varying,
-	project_id numeric,
+	project_id integer,
+	name character varying,
 	ip character varying
 );
 
