@@ -86,7 +86,7 @@ Class Basic extends CI_Model {
 					if (isset($replacer) && isset($replacer[$key])){
 						$key = $replacer[$key];
 					}
-					if ($j == 1){
+					if ($j == 1 && $edit){
 						echo "<td>Edit</td><td>$key</td>";
 					}else{
 						echo "<td>$key</td>";
@@ -103,7 +103,7 @@ Class Basic extends CI_Model {
 				if ($j == 0){
 					$no = $i + 1;
 					echo "<td class='isitabel-$i' id='$key-$i' actualid='$val'>$no</td>";
-				}else if ($j == 1){
+				}else if ($j == 1 && $edit){
 					echo "<td><button class='tombol' id='tombol-ke-$i'>Edit</button><td class='isitabel-$i' id='$key-$i'>$val</td>";
 				}else{
 					echo "<td class='isitabel-$i' id='$key-$i'>$val</td>";

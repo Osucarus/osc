@@ -11,11 +11,6 @@ $(document).ready(function(){
 });
 </script>
 <div id="installed">
-<table>
-<tr><td>*</td><td>Serial number</td><td>Name</td><td>Nominal</td></tr>
-<tr><td><input type="button" value="edit?"></td><td>ASDFGHJ</td><td>Component A</td><td>1</td></tr>
-<tr><td><input type="button" value="edit?"></td><td>QWERTYU</td><td>Component B</td><td>3</td></tr>
-<tr><td><input type="button" value="edit?"></td><td>ZXCVBNM</td><td>Component C</td><td>1</td></tr>
-</table>
+<?php $this->bs->tableBuilder($db);?>
 <input type="button" value="Request component" id="request">
 </div>
