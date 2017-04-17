@@ -4,6 +4,8 @@ class Ctest extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->model('Basic', 'bs');
+		$this->load->view('Loader');
 	}
 	
 	public function cihello(){
@@ -34,5 +36,11 @@ class Ctest extends CI_Controller {
 	
 	public function page1(){
 		phpinfo();
+	}
+	
+	public function testTable(){
+		$kue = "select * from customer";
+		$data['table'] = $this->bs->tableQuery('tabletest', $kue);
+		$this->load->view('cview', $data);
 	}
 }

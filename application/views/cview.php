@@ -1,2 +1,8 @@
+<script>
+$(document).ready(function(){
+	$('#tabletest').DataTable();
+})
+</script>
 <?php
-echo "Displaying passed argument : " . $arg;
+echo $table;
+?>

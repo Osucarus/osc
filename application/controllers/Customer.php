@@ -31,7 +31,7 @@ class Customer extends CI_Controller {
 	
 	public function insert(){
 		$kue = $this->bs->insertBuilder('customer',$_POST);
-		echo $this->db->query($kue);
+		$this->db->query($kue);
 	}
 	
 	public function generate(){
