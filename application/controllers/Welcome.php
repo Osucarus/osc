@@ -24,10 +24,10 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function coba(){
-		$tulisan = "Coba rot13";
-		$tulisan13 = str_rot13($tulisan);
-		$tulisan2 = str_rot13($tulisan13);
-		echo "hasil rot13 = ".$tulisan13;
-		echo "balikin rot13 = ".$tulisan2;
+		var_dump($_POST);
+	}
+	
+	public function coba_view(){
+		$this->load->view('coba');
 	}
 }

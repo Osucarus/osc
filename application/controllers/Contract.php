@@ -41,7 +41,7 @@ class Contract extends CI_Controller {
 		for ($i = 1; $i < 101; $i++){
 			$build = array(
 				"name" => "Customer $i",
-				"customer_id" => rand(5,104),
+				"customer_id" => rand(8,107),
 				"rfs" => "now()",
 				"period" => rand(1,10)." years",
 			);
