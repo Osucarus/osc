@@ -38,5 +38,5 @@ $(document).ready(function(){
 	});
 });
 </script>
-<body><?php $this->bs->tableBuilder($db);?>
+<body><?php $this->bs->tableBuilder($db, true);?>
 </body>

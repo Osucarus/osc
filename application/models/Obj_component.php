@@ -28,4 +28,9 @@ class Obj_component extends CI_Model {
 		return $result->result();
 	}
 	
+	public function getUnused(){
+		$kue = "select * from components where location_id = 0";
+		return $this->db->query($kue)->result();
+	}
+	
 }

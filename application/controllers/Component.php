@@ -18,8 +18,25 @@ class Component extends CI_Controller {
 		$this->load->view('Component/request');
 	}
 	
+	function newReq(){
+		$kue = $this->bs->insertBuilder('components_req',$_POST);
+		$this->db->query($kue);
+	}
+	
 	function installed(){
 		$data['db'] = $this->com->getByProjId($_POST['proj_id']);
+		$data['mode'] = 1;
+		$this->load->view('Component/table', $data);
+	}
+	
+	function view(){
+		if (isset($_POST['mode'])){
+			$data['db'] = $this->com->getUnused();
+			$data['mode'] = 0;
+		}else{
+			$data['db'] = $this->com->getAll();
+			$data['mode'] = 0;
+		}
 		$this->load->view('Component/table', $data);
 	}
 	
@@ -27,9 +44,13 @@ class Component extends CI_Controller {
 		$delkue = "delete from components";
 		$this->db->query($delkue);
 		for ($i = 1; $i < 31; $i++){
+			$loc = rand(0, 1);
+			if ($loc == 1){
+				$loc = rand(101,106);
+			};
 			$build = array(
 				"name" => "Component $i",
-				"location_id" => rand(101, 106),
+				"location_id" => $loc,
 				"type_id" => rand(1,3),
 				"nominal" => 1,
 				"nominal_measure" => "unit",
