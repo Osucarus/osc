@@ -11,33 +11,46 @@ class Component extends CI_Controller {
 	}
 	
 	function form(){
-		$this->load->view('Component/form');
-	}
-	
-	function request(){
-		$this->load->view('Component/request');
-	}
-	
-	function newReq(){
-		$kue = $this->bs->insertBuilder('components_req',$_POST);
-		$this->db->query($kue);
+		if ($_POST['mode'] == 2){
+			$_POST['db'] = $this->com->getById($_POST['id']);
+		}
+		$this->load->view('Component/form', $_POST);
 	}
 	
 	function installed(){
 		$data['db'] = $this->com->getByProjId($_POST['proj_id']);
-		$data['mode'] = 1;
+		$data['mode'] = 0;
 		$this->load->view('Component/table', $data);
 	}
 	
 	function view(){
-		if (isset($_POST['mode'])){
-			$data['db'] = $this->com->getUnused();
-			$data['mode'] = 0;
-		}else{
-			$data['db'] = $this->com->getAll();
-			$data['mode'] = 0;
-		}
+		$data['db'] = $this->com->getAll();
+		$data['mode'] = 0;
 		$this->load->view('Component/table', $data);
+	}
+	
+	function request_component(){
+		foreach($_POST['centang'] as $k => $id){
+			$data['data'] = array( "location_id" => $_POST['proj_id'], "confirmation" => "0");
+			$data['id'] = $id;
+			$this->com->update($data);
+		}
+	}
+	
+	function edit_component(){
+		$this->com->update($_POST);
+		$this->view();
+	}
+	
+	function add_component(){
+		$kue = $this->bs->insertBuilder('components', $_POST);
+		$this->db->query($kue);
+		$this->view();
+	}
+	
+	function del_component(){
+		$this->com->del_com($_POST);
+		$this->view();
 	}
 	
 	function generate(){

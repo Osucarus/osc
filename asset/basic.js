@@ -6,11 +6,11 @@ function reverseDate(x){
 
 function classValueToJson(className){
     var hasil = "{";
-        $(className).each(function(){
-            hasil+= "\""+$(this).attr('id')+"\" : \""+$(this).val()+"\",";
-        });
-        hasil = hasil.slice(',',-1);
-        hasil += "}";
-        hasil = JSON.parse(hasil);
-        return hasil;
-	}
+    $(className).each(function(){
+        hasil+= "\""+$(this).attr('id')+"\" : \""+$(this).val()+"\",";
+    });
+    hasil = hasil.slice(',',-1);
+    hasil += "}";
+    hasil = JSON.parse(hasil);
+    return hasil;
+}

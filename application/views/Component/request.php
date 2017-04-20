@@ -34,7 +34,6 @@ $(document).ready(function(){
 </select>
 </td></tr>
 <tr><td>Name</td><td>:</td><td><input class='req_input' id="reqname" disabled></td></tr>
-<tr><td>Nominal</td><td>:</td><td><input class='req_input' type="text" id="nominal" value="1"></td></tr>
 <tr><td>Note</td><td>:</td><td><textarea rows="6" cols="75" id="note" class="req_input">
 Write note here ....
 </textarea></td></tr>

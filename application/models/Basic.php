@@ -118,7 +118,7 @@ Class Basic extends CI_Model {
 		echo "</tbody><table>";
 	}
 	// -------------------------------------------------------------------------------------------
-	// Data Table Builder (for DataTables.js)
+	// Plain DataTable Builder (for DataTables.js)
 	// -------------------------------------------------------------------------------------------
 	function dataTableBuilder($id, $db){
 		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
@@ -137,7 +137,7 @@ Class Basic extends CI_Model {
 				foreach($d as $key => $value){
 						echo "<th>$key</th>";
 					}
-				echo "</tfoot></thead><tbody>";
+				echo "</tr></tfoot><tbody>";
 			}
 			
 			// Isi
@@ -157,25 +157,92 @@ Class Basic extends CI_Model {
 		}
 		echo "</tbody><table>";
 	}
-	
+	// -------------------------------------------------------------------------------------------
+	// DataTable Builder based on query
+	// -------------------------------------------------------------------------------------------
 	function tableQuery($id, $kue){
 		$result = $this->db->query($kue);
 		$db = $result->result();
 		$this->dataTableBuilder($id, $db);
 	}
-	
-	function table_checker($id, $db){
+	// -------------------------------------------------------------------------------------------
+	// DataTable Builder with edit button
+	// -------------------------------------------------------------------------------------------
+	function datatable_edit($id, $db){
+		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
+		$i = 0;
+		foreach($db as $d) {
+			// Header
+			if ($i == 0){
+				$j = 0;
+				echo "<thead><tr>";
+				foreach($d as $key => $value){
+					if ($j == 1){
+						echo "<th>Edit</th><th>$key</th>";
+					}else{
+						echo "<th>$key</th>";
+					}
+					$j += 1;
+				}
+				echo "</tr></thead>";
+				echo "<tfoot><tr>";
+				$j = 0;
+				foreach($d as $key => $value){
+					if ($j == 1){
+						echo "<th>Edit</th><th>$key</th>";
+					}else{
+						echo "<th>$key</th>";
+					}
+					$j += 1;
+				}
+				echo "</tr></tfoot>";
+				
+				echo "<tbody>";
+			}
+			
+			// Isi
+			$j = 0;
+			echo "<tr>";
+			foreach($d as $key => $val){
+				if ($j == 0){
+					$no = $i + 1;
+					echo "<td class='isitabel-$i' id='$key-$i' actualid='$val'>$no</td>";
+				}else if ($j == 1){
+					echo "<td><button class='tombol' id='tombol-ke-$i'>Edit</button><td class='isitabel-$i' id='$key-$i'>$val</td>";
+				}else{
+					echo "<td class='isitabel-$i' id='$key-$i'>$val</td>";
+				}
+				$j += 1;
+			}
+			echo"</tr>";
+			$i += 1;
+		}
+		echo "</tbody><table>";
+	}
+	// -------------------------------------------------------------------------------------------
+	// DataTable Builder with checkbox 
+	// -------------------------------------------------------------------------------------------
+	function datatable_checker($id, $db, $option = array()){
 		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
 		$i = 0;
 		
+		$default = array( "highlight" => "gray", "vocab_check" => "Check");
+		$option = array_merge($default, $option);
+		
+		$highlight = $option['highlight'];
+		$check = $option['vocab_check'];
+		
 		$size = count($db);
-		echo "<script>";
+		echo "<script>\n";
+		echo "var hidden_json = {};\n";
 		for ($k = 0; $k < $size; $k++){
 			echo "function check_change$k(){
 				if (document.getElementById('check-$k').checked) {
 					$('#row-$k').addClass('checked');
+					hidden_json['check-$k'] = ($('#check-$k').val());
 				}else{
 					$('#row-$k').removeClass('checked');
+					delete hidden_json['check-$k'];
 				};
 			};
 			";
@@ -183,7 +250,7 @@ Class Basic extends CI_Model {
 		echo "</script>\n";
 		echo "<style>
 		table.dataTable .checked {
-			background-color: gray;
+			background-color: $highlight;
 		}
 		</style>";
 		foreach($db as $d) {
@@ -194,7 +261,7 @@ Class Basic extends CI_Model {
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
 						if ($j == 1){
-							echo "<th>Check</th><th>$key</th>";
+							echo "<th>$check</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
 						}
@@ -207,13 +274,13 @@ Class Basic extends CI_Model {
 				echo "<tfoot><tr>";
 				foreach($d as $key => $value){
 						if ($j == 1){
-							echo "<th>Check</th><th>$key</th>";
+							echo "<th>$check</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
 						}
 						$j += 1;
 					}
-				echo "</tfoot></thead><tbody>";
+				echo "</tr></tfoot><tbody>";
 			}
 			
 			// Isi
@@ -226,6 +293,173 @@ Class Basic extends CI_Model {
 					echo "<td id='$key-$i'>$no</td>";
 				}else if ($j == 1){
 					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change$i()'></td><td id='$key-$i'>$val</td>";
+				}else{
+					echo "<td id='$key-$i'>$val</td>";
+				}
+				$j += 1;
+			}
+			echo"</tr>";
+			$i += 1;
+		}
+		echo "</tbody><table>";
+	}
+	// -------------------------------------------------------------------------------------------
+	// DataTable Builder with radio button
+	// -------------------------------------------------------------------------------------------
+	function datatable_radio($id, $db, $option = array()){
+		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
+		$i = 0;
+		
+		$default = array( "highlight" => "gray", "vocab_radio" => "Select");
+		$option = array_merge($default, $option);
+		
+		$highlight = $option['highlight'];
+		$select = $option['vocab_radio'];
+		
+		$size = count($db);
+		echo "<script>\n";
+		for ($k = 0; $k < $size; $k++){
+			echo "function check_change$k(){
+				$('.highlight').each(function(){
+					$(this).removeClass('checked');
+				});
+				if (document.getElementById('radio-$k').checked) {
+					$('#row-$k').addClass('checked');
+				};
+			};
+			";
+		};
+		echo "</script>\n";
+		echo "<style>
+		table.dataTable .checked {
+			background-color: $highlight;
+		}
+		</style>";
+		foreach($db as $d) {
+			if ($i == 0){
+				
+				// Header
+				$j = 0;
+				echo "<thead><tr>";
+				foreach($d as $key => $value){
+						if ($j == 1){
+							echo "<th>$select</th><th>$key</th>";
+						}else{
+							echo "<th>$key</th>";
+						}
+						$j += 1;
+					}
+				echo "</tr></thead>";
+				
+				// Footer
+				$j = 0;
+				echo "<tfoot><tr>";
+				foreach($d as $key => $value){
+						if ($j == 1){
+							echo "<th>$select</th><th>$key</th>";
+						}else{
+							echo "<th>$key</th>";
+						}
+						$j += 1;
+					}
+				echo "</tr></tfoot><tbody>";
+			}
+			
+			// Isi
+			$j = 0;
+			echo "<tr id='row-$i' class='highlight'>";
+			foreach($d as $key => $val){
+				if ($j == 0){
+					$no = $i + 1;
+					$actualid = $val;
+					echo "<td id='$key-$i'>$no</td>";
+				}else if ($j == 1){
+					echo "<td><input id='radio-$i' type='radio' value='$actualid' name='proj_radio' onchange='check_change$i()'></td><td id='$key-$i'>$val</td>";
+				}else{
+					echo "<td id='$key-$i'>$val</td>";
+				}
+				$j += 1;
+			}
+			echo"</tr>";
+			$i += 1;
+		}
+		echo "</tbody><table>";
+	}
+	// -------------------------------------------------------------------------------------------
+	// DataTable Builder with edit and check
+	// -------------------------------------------------------------------------------------------
+	function datatable_edit_and_check($id, $db, $option = array()){
+		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
+		$i = 0;
+		
+		$default = array( "highlight" => "gray", "vocab_check" => "Check", "vocab_edit" => "Edit" );
+		$option = array_merge($default, $option);
+		
+		$highlight = $option['highlight'];
+		$check = $option['vocab_check'];
+		$edit = $option['vocab_edit'];
+		
+		$size = count($db);
+		echo "<script>\n";
+		echo "var hidden_json = {};\n";
+		for ($k = 0; $k < $size; $k++){
+			echo "function check_change$k(){
+				if (document.getElementById('check-$k').checked) {
+					$('#row-$k').addClass('checked');
+					hidden_json['check-$k'] = ($('#check-$k').val());
+				}else{
+					$('#row-$k').removeClass('checked');
+					delete hidden_json['check-$k'];
+				};
+			};
+			";
+		};
+		echo "</script>\n";
+		echo "<style>
+		table.dataTable .checked {
+			background-color: $highlight;
+		}
+		</style>";
+		foreach($db as $d) {
+			if ($i == 0){
+				
+				// Header
+				$j = 0;
+				echo "<thead><tr>";
+				foreach($d as $key => $value){
+						if ($j == 1){
+							echo "<th>$check</th><th>$edit</th><th>$key</th>";
+						}else{
+							echo "<th>$key</th>";
+						}
+						$j += 1;
+					}
+				echo "</tr></thead>";
+				
+				// Footer
+				$j = 0;
+				echo "<tfoot><tr>";
+				foreach($d as $key => $value){
+						if ($j == 1){
+							echo "<th>$check</th><th>$edit</th><th>$key</th>";
+						}else{
+							echo "<th>$key</th>";
+						}
+						$j += 1;
+					}
+				echo "</tr></tfoot><tbody>";
+			}
+			
+			// Isi
+			$j = 0;
+			echo "<tr id='row-$i'>";
+			foreach($d as $key => $val){
+				if ($j == 0){
+					$no = $i + 1;
+					$actualid = $val;
+					echo "<td id='$key-$i'>$no</td>";
+				}else if ($j == 1){
+					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change$i()'></td><td><input type='button' id='button-$i' value='edit' realid='$actualid' class='tombolan'></td><td id='$key-$i'>$val</td>";
 				}else{
 					echo "<td id='$key-$i'>$val</td>";
 				}

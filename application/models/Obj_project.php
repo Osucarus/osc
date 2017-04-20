@@ -22,4 +22,13 @@ class Obj_project extends CI_Model {
 		return $result->result();
 	}
 	
+	public function update($data){
+		$dbname = 'Project';
+		$arr = $data['data'];
+		$id = $data['id'];
+		$where = "id = $id";
+		$kue = $this->bs->updateBuilder($dbname, $arr, $where);
+		return $kue;
+	}
+	
 }
