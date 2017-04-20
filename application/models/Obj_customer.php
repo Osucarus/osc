@@ -4,6 +4,7 @@ class Obj_customer extends CI_Model {
 	function __construct (){
 		parent::__construct();
 		$this->load->database();
+		$this->load->model('Basic','bas');
 	}
 	
 	// Return = an array containing (key = column name, value = column value)
@@ -21,4 +22,11 @@ class Obj_customer extends CI_Model {
 		$result = $this->db->query($kue);
 		return $result->result();
 	}
+	
+	/*public function get_customer_all(){
+		$kueri = "select name as nama, address as alamat from Customers";
+		$hasil = $this->bas->tableBuilder2('tabel_customer',$kueri);
+		return hasil;
+	}*/
+	
 }

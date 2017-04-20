@@ -34,6 +34,11 @@ class Customer extends CI_Controller {
 		$this->db->query($kue);
 	}
 	
+	/*public function show_customers(){
+		$data['tabel'] = $this->cs->getCustomerAll();
+		$this->load->view('Customer/show_all_customer',$data);
+	}*/
+	
 	public function generate(){
 		$delkue = "delete from customer";
 		$this->db->query($delkue);
