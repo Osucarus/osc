@@ -22,4 +22,18 @@ class Obj_contract extends CI_Model {
 		return $result->result();
 	}
 	
+	public function update($post){
+		$dbname = 'Contract';
+		$arr = $post['data'];
+		$id = $post['id'];
+		$where = "id = $id";
+		$kue = $this->bs->updateBuilder($dbname, $arr, $where);
+		$this->db->query($kue);
+	}
+	
+	public function insert($post){
+		$dbname = 'Contract';
+		$kue = $this->bs->insertBuilder($dbname, $post);
+		$this->db->query($kue);
+	}
 }

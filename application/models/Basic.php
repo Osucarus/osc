@@ -131,53 +131,32 @@ Class Basic extends CI_Model {
 	// -------------------------------------------------------------------------------------------
 	// Plain DataTable Builder (for DataTables.js)
 	// -------------------------------------------------------------------------------------------
-	function dataTableBuilder($id, $db){
+	function datatable_plain($id, $db){
 		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
 		$i = 0;
-		$k = 0;
 		foreach($db as $d) {
 			if ($i == 0){
 				// Header
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
-					if ($k == 0){
-						echo "<th>$key</th><th>Edit</th>";
-					} else {
-						echo "<th>$key</th>";
-					}
-					$k++;
+					echo "<th>$key</th>";
 				}
 				
 				echo "</tr></thead>";
-				$k=0;
 				// Footer
 				echo "<tfoot><tr>";
 				foreach($d as $key => $value){
-					if ($k == 0){
-						echo "<th>$key</th><th>Edit</th>";
-					} else {
-						echo "<th>$key</th>";
-					}
-
-					$k++;
+					echo "<th>$key</th>";
 				}
 				
-				echo "</tfoot></thead><tbody>";
 				echo "</tr></tfoot><tbody>";
 
 			}
 			
 			// Isi
-			$j = 0;
 			echo "<tr>";
 			foreach($d as $key => $val){
-				if ($j == 0){
-					$no = $i + 1;
-					echo "<td class='isitabel-$i' id='$key-$i' actualid='$val'>$no</td><td><button id='edit-$i' class='tombol'>Edit</button></td>";
-				}else{
-					echo "<td class='isitabel-$i' id='$key-$i' aidi='$key'>$val</td>";
-				}
-				$j += 1;
+				echo "<td class='isitabel-$i' id='$key-$i' aidi='$key'>$val</td>";
 			}
 			echo"</tr>";
 			$i += 1;
@@ -190,7 +169,7 @@ Class Basic extends CI_Model {
 	function tableQuery($id, $kue){
 		$result = $this->db->query($kue);
 		$db = $result->result();
-		$this->dataTableBuilder($id, $db);
+		$this->datatable_plain($id, $db);
 	}
 	// -------------------------------------------------------------------------------------------
 	// DataTable Builder with edit button
@@ -233,9 +212,10 @@ Class Basic extends CI_Model {
 			foreach($d as $key => $val){
 				if ($j == 0){
 					$no = $i + 1;
-					echo "<td class='isitabel-$i' id='$key-$i' actualid='$val'>$no</td>";
+					$actualid = $val;
+					echo "<td class='isitabel-$i' id='$key-$i' actualid='$actualid'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><button class='tombol' id='tombol-ke-$i'>Edit</button><td class='isitabel-$i' id='$key-$i'>$val</td>";
+					echo "<td><button class='tombol' id='tombol-ke-$i' actualid='$actualid'>Edit</button><td class='isitabel-$i' id='$key-$i'>$val</td>";
 				}else{
 					echo "<td class='isitabel-$i' id='$key-$i'>$val</td>";
 				}
@@ -253,7 +233,6 @@ Class Basic extends CI_Model {
 		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
 		$i = 0;
 		
-<<<<<<< HEAD
 		$size = count($db);
 		echo "<script>";
 		echo "function check_change(x){
@@ -265,7 +244,6 @@ Class Basic extends CI_Model {
 		};
 		";
 		
-=======
 		$default = array( "highlight" => "gray", "vocab_check" => "Check");
 		$option = array_merge($default, $option);
 		
@@ -487,7 +465,6 @@ Class Basic extends CI_Model {
 					$actualid = $val;
 					echo "<td id='$key-$i'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\'$i\')'></td><td id='$key-$i'>$val</td>";
 					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\"$i\")'></td><td><input type='button' id='button-$i' value='edit' realid='$actualid' class='tombolan'></td><td id='$key-$i'>$val</td>";
 				}else{
 					echo "<td id='$key-$i'>$val</td>";

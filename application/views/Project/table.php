@@ -41,5 +41,11 @@ $(document).ready(function(){
 });
 </script>
 <div id="project_table">
-<?php $this->bs->datatable_edit("table_project", $db);?>
+<?php 
+if ($mode == 1){
+	$this->bs->datatable_edit("table_project", $db);
+}else{
+	$this->bs->datatable_plain("table_project", $db);
+}
+?>
 </div>

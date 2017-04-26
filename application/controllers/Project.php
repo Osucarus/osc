@@ -24,8 +24,8 @@ class Project extends CI_Controller {
 	}
 	
 	function view(){
-		$data['db'] = $this->proj->getAll();
-		$this->load->view('Project/table', $data);
+		$_POST['db'] = $this->proj->getAll();
+		$this->load->view('Project/table', $_POST);
 	}
 	
 	function view_radio(){

@@ -10,18 +10,36 @@ $(document).ready(function(){
 //===============================================================
 
 function isiKonten(isi){
-	$('.dropdown-menu').hide();
-	$('#konten').html(isi);
+	$('.dropdown-menu').hide(); // Hilangin menu dropdownnya
+	$('#konten').html(isi);		// Isi kontennya
 }
 
 function viewCustomer(){
-	$.post('<?php echo site_url();?>/view_customer',{oke : 'ok'},function(data){
+	$.post('<?php echo site_url();?>/view_customer',{},function(data){
 		isiKonten(data);
 	})
 }
 
 function addCustomer(){
-	$.post('<?php echo site_url();?>/add_customer',{oke : 'ok'},function(data){
+	$.post('<?php echo site_url();?>/add_customer',{},function(data){
+		isiKonten(data);
+	})
+}
+
+function viewContract(){
+	$.post('<?php echo site_url();?>/Contract/view',{},function(data){
+		isiKonten(data);
+	})
+}
+
+function addContract(){
+	$.post('<?php echo site_url();?>/Contract/form',{mode: 0},function(data){
+		isiKonten(data);
+	})
+}
+
+function viewProject(){
+	$.post('<?php echo site_url();?>/Project/view',{mode: 0},function(data){
 		isiKonten(data);
 	})
 }
@@ -63,10 +81,10 @@ function dropImplementation(){
             <li><a href="#" onclick='viewCustomer()'>View Customer</a></li>
             <li><a href="#" onclick='addCustomer()'>Add Customer</a></li>
 			<li role="separator" class="divider"></li>
-			<li><a href="#">View Contract</a></li>
-			<li><a href="#">Add Contract</a></li>
+			<li><a href="#" onclick='viewContract()'>View Contract</a></li>
+			<li><a href="#" onclick='addContract()'>Add Contract</a></li>
 			<li role="separator" class="divider"></li>
-			<li><a href="#">View Project</a></li>
+			<li><a href="#" onclick='viewProject()'>View Project</a></li>
 			<li></li>
           </ul>
         </li>
