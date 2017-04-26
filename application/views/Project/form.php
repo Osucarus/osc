@@ -8,7 +8,7 @@ $(document).ready(function(){
 			$('#component').attr('state',1);
 			var uri = "<?php echo site_url() . "/Component/installed"?>";
 			var pid = $('#pid').val();
-			var data_insert = { proj_id: pid}; // Nanti diisi data dummy / sebenarnya
+			var data_insert = { proj_id: pid, mode: 1 };
 			$.post(uri, data_insert, function(data, status){
 				$('#display').html(data); 
 			});
@@ -56,7 +56,7 @@ $(document).ready(function(){
 <option value="1">On going</option>
 <option value="2">Finished</option></td></tr>
 <tr><td>Note</td><td>:</td><td><textarea class='inputan' id='note' rows="6" cols="75"></textarea></td></tr>
-<tr><td>Upload file report</td><td>:</td><td><input class='inputan' type="file" id="file"></td></tr>
+<tr><td>Upload file report</td><td>:</td><td><input class='inputanx' type="file" id="file"></td></tr>
 <tr><td><input id="edit_proj" type="button" value="Update"></td><td></td><td><input id="component" type="button" value="Show components" state="0"></td></tr>
 </table>
 </form>

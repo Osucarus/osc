@@ -56,7 +56,11 @@ Class Basic extends CI_Model {
         $postval = "";
         foreach($arr as $ar => $val){
             $preval .= "$ar,";
-            $postval .= "'$val',";
+			if ($val !== ''){
+				$postval .= "'$val',";
+			}else{
+				$postval .= "null,";
+			}
         }
         $preval = substr($preval,0,-1);
         $postval = substr($postval,0,-1);
@@ -67,10 +71,17 @@ Class Basic extends CI_Model {
     function updateBuilder($dbname, $arr, $condition = null){
         $postset = "";
         foreach($arr as $ar => $val){
-            $postset .= "$ar = '$val',";
+			if ($val !== ''){
+				$postset .= "$ar = '$val',";
+			}else{
+				$postset .= "$ar = null,";
+			}
         }
         $postset = substr($postset,0,-1);
-        $res = "update $dbname set $postset where $condition";
+        $res = "update $dbname set $postset";
+		if (isset($condition)){
+			 $res .= " where $condition";
+		}
         return $res;
     }
 	// -------------------------------------------------------------------------------------------
@@ -232,21 +243,17 @@ Class Basic extends CI_Model {
 		$highlight = $option['highlight'];
 		$check = $option['vocab_check'];
 		
-		$size = count($db);
 		echo "<script>\n";
 		echo "var hidden_json = {};\n";
-		for ($k = 0; $k < $size; $k++){
-			echo "function check_change$k(){
-				if (document.getElementById('check-$k').checked) {
-					$('#row-$k').addClass('checked');
-					hidden_json['check-$k'] = ($('#check-$k').val());
-				}else{
-					$('#row-$k').removeClass('checked');
-					delete hidden_json['check-$k'];
-				};
+		echo "function check_change(n){
+			if (document.getElementById('check-' + n).checked) {
+				$('#row-' + n).addClass('checked');
+				hidden_json['check-' + n] = ($('#check-' + n).val());
+			}else{
+				$('#row-' + n).removeClass('checked');
+				delete hidden_json['check-' + n];
 			};
-			";
-		};
+		};";
 		echo "</script>\n";
 		echo "<style>
 		table.dataTable .checked {
@@ -261,7 +268,7 @@ Class Basic extends CI_Model {
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
 						if ($j == 1){
-							echo "<th>$check</th><th>$key</th>";
+							echo "<th class='check_label'>$check</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
 						}
@@ -274,7 +281,7 @@ Class Basic extends CI_Model {
 				echo "<tfoot><tr>";
 				foreach($d as $key => $value){
 						if ($j == 1){
-							echo "<th>$check</th><th>$key</th>";
+							echo "<th class='check_label'>$check</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
 						}
@@ -292,7 +299,7 @@ Class Basic extends CI_Model {
 					$actualid = $val;
 					echo "<td id='$key-$i'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change$i()'></td><td id='$key-$i'>$val</td>";
+					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\"$i\")'></td><td id='$key-$i'>$val</td>";
 				}else{
 					echo "<td id='$key-$i'>$val</td>";
 				}
@@ -316,19 +323,15 @@ Class Basic extends CI_Model {
 		$highlight = $option['highlight'];
 		$select = $option['vocab_radio'];
 		
-		$size = count($db);
 		echo "<script>\n";
-		for ($k = 0; $k < $size; $k++){
-			echo "function check_change$k(){
-				$('.highlight').each(function(){
-					$(this).removeClass('checked');
-				});
-				if (document.getElementById('radio-$k').checked) {
-					$('#row-$k').addClass('checked');
-				};
+		echo "function check_change(n){
+			$('.highlight').each(function(){
+				$(this).removeClass('checked');
+			});
+			if (document.getElementById('radio-' + n).checked) {
+				$('#row-' + n).addClass('checked');
 			};
-			";
-		};
+		};";
 		echo "</script>\n";
 		echo "<style>
 		table.dataTable .checked {
@@ -374,7 +377,7 @@ Class Basic extends CI_Model {
 					$actualid = $val;
 					echo "<td id='$key-$i'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><input id='radio-$i' type='radio' value='$actualid' name='proj_radio' onchange='check_change$i()'></td><td id='$key-$i'>$val</td>";
+					echo "<td><input id='radio-$i' type='radio' value='$actualid' name='proj_radio' onchange='check_change(\"$i\")'></td><td id='$key-$i'>$val</td>";
 				}else{
 					echo "<td id='$key-$i'>$val</td>";
 				}
@@ -399,21 +402,17 @@ Class Basic extends CI_Model {
 		$check = $option['vocab_check'];
 		$edit = $option['vocab_edit'];
 		
-		$size = count($db);
 		echo "<script>\n";
 		echo "var hidden_json = {};\n";
-		for ($k = 0; $k < $size; $k++){
-			echo "function check_change$k(){
-				if (document.getElementById('check-$k').checked) {
-					$('#row-$k').addClass('checked');
-					hidden_json['check-$k'] = ($('#check-$k').val());
-				}else{
-					$('#row-$k').removeClass('checked');
-					delete hidden_json['check-$k'];
-				};
+		echo "function check_change(n){
+			if (document.getElementById('check-' + n).checked) {
+				$('#row-' + n).addClass('checked');
+				hidden_json['check-' + n] = ($('#check-' + n).val());
+			}else{
+				$('#row-' + n).removeClass('checked');
+				delete hidden_json['check-' + n];
 			};
-			";
-		};
+		};";
 		echo "</script>\n";
 		echo "<style>
 		table.dataTable .checked {
@@ -459,7 +458,7 @@ Class Basic extends CI_Model {
 					$actualid = $val;
 					echo "<td id='$key-$i'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change$i()'></td><td><input type='button' id='button-$i' value='edit' realid='$actualid' class='tombolan'></td><td id='$key-$i'>$val</td>";
+					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\"$i\")'></td><td><input type='button' id='button-$i' value='edit' realid='$actualid' class='tombolan'></td><td id='$key-$i'>$val</td>";
 				}else{
 					echo "<td id='$key-$i'>$val</td>";
 				}

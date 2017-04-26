@@ -6,33 +6,54 @@ Mode 2 : Edit component. To edit the information or delete a component. (Accesse
 -->
 <script>
 $(document).ready(function(){
-	$('#submit_req').click(function(evt){
+	console.log($('#exe_button'));
+	
+	$('#exe_button').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
+		var suichi = $('#exe_button').attr('mode');
+		switch(suichi){
+			case "0":
+				submit_req();
+				break;
+			case "1":
+				add_new_com();
+				break;
+			case "2":
+				edit_com();
+				break;
+		}
+	});	
+	
+	function submit_req(){
 		var uri = "<?php echo site_url() . "/Component/add_component"?>";
-		var data_send = classValueToJson('.inputan');
-		data_send['location_id'] = 101; // Nanti diganti
+		var data_send = classValueToJson('.input_com');
+		data_send['location_id'] = $('#pid').val();
 		data_send['confirmation'] = 0; // Unconfirmed
 		data_send['status'] = 2; // Requested
 		$.post(uri, data_send, function(data, status){
-			$('body').html(data);
+			//$('#debug_div').html(data);
+			var uri2 = "<?php echo site_url() . "/Component/installed"?>";
+			var pid = data_send['location_id'];
+			var data_insert = { proj_id: pid, mode: 1 };
+			$.post(uri2, data_insert, function(data, status){
+				$('#display').html(data); 
+			});
 		});
-	});
+	}
 	
-	$('#add_new_com').click(function(evt){
-		evt.preventDefault(); // Biar gak ke refresh
+	function add_new_com(){
 		var uri = "<?php echo site_url() . "/Component/add_component"?>";
-		var data_send = classValueToJson('.inputan');
+		var data_send = classValueToJson('.input_com');
 		data_send['location_id'] = 0;
 		data_send['confirmation'] = 1;
 		$.post(uri, data_send, function(data, status){
 			$('body').html(data);
 		});
-	});
+	}
 	
-	$('#edit_com').click(function(evt){
-		evt.preventDefault(); // Biar gak ke refresh
+	function edit_com(){
 		var uri = "<?php echo site_url() . "/Component/edit_component"?>";
-		var data = classValueToJson('.inputan');
+		var data = classValueToJson('.input_com');
 		var com_id = $('#com_id').val();
 		var data_send  = {
 			data: data,
@@ -41,15 +62,19 @@ $(document).ready(function(){
 		$.post(uri, data_send, function(data, status){
 			$('body').html(data);
 		});
-	});
+	}
 	
-	$('#del_com').click(function(evt){
-		evt.preventDefault(); // Biar gak ke refresh
+	function del_com(){
 		var uri = "<?php echo site_url() . "/Component/del_component"?>";
 		var com_id = $('#com_id').val();
 		$.post(uri, { id: com_id }, function(data, status){
 			$('body').html(data);
 		});
+	}
+	
+	$('#debug_button').click(function(evt){
+		$('#location_id').prop('disabled', false);
+		$('#debug_row').prop('hidden', false);
 	});
 	
 	<?php 
@@ -65,7 +90,7 @@ $(document).ready(function(){
 <form id='component_form'>
 <input type='text' id='com_id' hidden>
 <table>
-<tr><td>Type</td><td>:</td><td><select class='inputan' id="type_id">
+<tr><td>Type</td><td>:</td><td><select class='input_com' id="type_id">
 	<?php 
 	$comtype = array("Component A", "Component B", "Component C", "Component D"); // Nanti diganti pake Master data
 	foreach($comtype as $index => $type){
@@ -78,7 +103,7 @@ $(document).ready(function(){
 <?php 
 // (Project) When sumbiting request, setting status is unable. Status will always be 'requested'
 if ($mode != 0){
-	echo "<tr><td>Status</td><td>:</td><td><select class='inputan' id='status'>";
+	echo "<tr><td>Status</td><td>:</td><td><select class='input_com' id='status'>";
 	$status = array('Avaliable', 'Broken', 'Requested', 'Installed', 'Dismantle'); // Nanti diganti pake Master data
 	foreach($status as $index => $type){
 		echo "<option value='$index'>$type</option>\n";
@@ -89,31 +114,31 @@ if ($mode != 0){
 
 // Edit mode will be able to see location id but can't change it
 if ($mode == 2){
-	echo "<tr><td>Location</td><td>:</td><td><input class='inputan' type='text' id='location_id' disabled></td></tr>";
+	echo "<tr><td>Location</td><td>:</td><td><input class='input_com' type='text' id='location_id' disabled></td></tr>";
+	echo "<tr id='debug_row' hidden><td>Confirmation</td><td>:</td><td><input class='input_com' type='text' id='confirmation'></td></tr>";
 };
 ?>
-<tr><td>Serial Number</td><td>:</td><td><input class='inputan' type='text' id='serial_number'></td></tr>
-<tr><td>Name</td><td>:</td><td><input class='inputan' id="name"></td></tr>
-<tr><td>Nominal</td><td>:</td><td><input class='inputan' id="nominal"></td></tr>
-<tr><td>Measure</td><td>:</td><td><input class='inputan' id="nominal_measure"></td></tr>
-<tr><td>Description</td><td>:</td><td><textarea rows="6" cols="75" id="description" class='inputan'>
+<tr><td>Serial Number</td><td>:</td><td><input class='input_com' type='text' id='serial_number'></td></tr>
+<tr><td>Name</td><td>:</td><td><input class='input_com' id="name"></td></tr>
+<tr><td>Nominal</td><td>:</td><td><input class='input_com' id="nominal"></td></tr>
+<tr><td>Measure</td><td>:</td><td><input class='input_com' id="nominal_measure"></td></tr>
+<tr><td>Description</td><td>:</td><td><textarea rows="6" cols="75" id="description" class='input_com'>
 </textarea></td></tr>
+<tr><td><input type='button' id='exe_button' value='
 <?php 
-echo "<tr>";
 switch ($mode) {
     case 0: // Request new component
-        echo "<td><input type='button' id='sumbit_req' value='Request component'></td>";
+        echo "Request component";
         break;
     case 1: // Add new component
-        echo "<td><input type='button' id='add_new_com' value='Add component'></td>";
+        echo "Add component";
         break;
     case 2: // Edit component
-        echo "<td><input type='button' id='edit_com' value='Update component'></td>";
-		echo "<td></td>";
-		echo "<td><input type='button' id='del_com' value='Delete component'></td>";
-        break;
+        echo "Update component";
 };
-echo "</tr>";
-?>
+?>' mode='<?php echo "$mode"?>'>
+</td><td><input type='button' onclick="del_com()" id='del_com' value='Delete component' <?php if ($mode != 2) {echo "hidden";}?>></td></tr>
+<tr><td><input type='button' value='debug mode' id='debug_button' hidden></td></tr>
 </table>
 </form>
+<div id='debug_div'></div>

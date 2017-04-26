@@ -14,3 +14,7 @@ function classValueToJson(className){
     hasil = JSON.parse(hasil);
     return hasil;
 }
+
+function debug(){
+	console.log("This line is executed");
+}

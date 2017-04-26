@@ -15,9 +15,8 @@ class Project extends CI_Controller {
 	}
 	
 	function edit_project(){
-		var_dump($_POST);
-		echo $this->proj->update($_POST);
-		//$this->view();
+		$this->proj->update($_POST);
+		$this->view();
 	}
 	
 	function insert(){
