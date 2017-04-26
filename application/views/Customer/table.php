@@ -5,7 +5,7 @@ $(document).ready(function(){
 	
 	// Iterasi untuk setiap tombol
 	$('.tombol').each(function(){
-		var id = "#tombol-ke-" + i;
+		var id = "#edit-" + i;
 		var colclass = ".isitabel-" + i;
 		
 		// Cantoling fungsi di setiap tombol
@@ -29,14 +29,15 @@ $(document).ready(function(){
 			});
 			
 			$.post(uri, data_db, function(data, status){
-				$('body').html(data);
+				$('#konten').html(data);
 			});
 		});
 		
 		// Row counter nambah setelah bisnis nyantolin fungsi selese
 		i++;
 	});
+	$('#table_cust').DataTable();
 });
 </script>
-<body><?php $this->bs->tableBuilder($db, true);?>
+<body><?php $this->bs->dataTableBuilder('table_cust',$db);?>
 </body>

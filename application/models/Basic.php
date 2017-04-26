@@ -123,20 +123,33 @@ Class Basic extends CI_Model {
 	function dataTableBuilder($id, $db){
 		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
 		$i = 0;
+		$k = 0;
 		foreach($db as $d) {
 			if ($i == 0){
 				// Header
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
+					if ($k == 0){
+						echo "<th>$key</th><th>Edit</th>";
+					} else {
 						echo "<th>$key</th>";
 					}
-				echo "</tr></thead>";
+					$k++;
+				}
 				
+				echo "</tr></thead>";
+				$k=0;
 				// Footer
 				echo "<tfoot><tr>";
 				foreach($d as $key => $value){
+					if ($k == 0){
+						echo "<th>$key</th><th>Edit</th>";
+					} else {
 						echo "<th>$key</th>";
 					}
+					$k++;
+				}
+				
 				echo "</tfoot></thead><tbody>";
 			}
 			
@@ -146,9 +159,9 @@ Class Basic extends CI_Model {
 			foreach($d as $key => $val){
 				if ($j == 0){
 					$no = $i + 1;
-					echo "<td class='isitabel-$i' id='$key-$i' actualid='$val' style='border: 1px solid black'>$no</td>";
+					echo "<td class='isitabel-$i' id='$key-$i' actualid='$val'>$no</td><td><button id='edit-$i' class='tombol'>Edit</button></td>";
 				}else{
-					echo "<td class='isitabel-$i' id='$key-$i' style='border: 1px solid black'>$val</td>";
+					echo "<td class='isitabel-$i' id='$key-$i' aidi='$key'>$val</td>";
 				}
 				$j += 1;
 			}
@@ -170,16 +183,15 @@ Class Basic extends CI_Model {
 		
 		$size = count($db);
 		echo "<script>";
-		for ($k = 0; $k < $size; $k++){
-			echo "function check_change$k(){
-				if (document.getElementById('check-$k').checked) {
-					$('#row-$k').addClass('checked');
+		echo "function check_change(x){
+				if (document.getElementById('check-'+x).checked) {
+					$('#row-'+x).addClass('checked');
 				}else{
-					$('#row-$k').removeClass('checked');
+					$('#row-'+x).removeClass('checked');
 				};
-			};
-			";
 		};
+		";
+		
 		echo "</script>\n";
 		echo "<style>
 		table.dataTable .checked {
@@ -225,7 +237,7 @@ Class Basic extends CI_Model {
 					$actualid = $val;
 					echo "<td id='$key-$i'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change$i()'></td><td id='$key-$i'>$val</td>";
+					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\'$i\')'></td><td id='$key-$i'>$val</td>";
 				}else{
 					echo "<td id='$key-$i'>$val</td>";
 				}

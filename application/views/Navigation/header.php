@@ -5,21 +5,40 @@ $(document).ready(function(){
 	
 });
 
+//===============================================================
+// User Interface Control
+//===============================================================
+
+function isiKonten(isi){
+	$('.dropdown-menu').hide();
+	$('#konten').html(isi);
+}
+
 function viewCustomer(){
-	$.post('<?php echo site_url();?>/Customer/view',{oke : 'ok'},function(data){
-		$('#konten').html(data);
+	$.post('<?php echo site_url();?>/view_customer',{oke : 'ok'},function(data){
+		isiKonten(data);
 	})
 }
 
-function dropCustomer(){
+function addCustomer(){
+	$.post('<?php echo site_url();?>/add_customer',{oke : 'ok'},function(data){
+		isiKonten(data);
+	})
+}
+
+//============================================================
+// User Experience
+//============================================================
+
+function dropCommerce(){
 	$('.dropdown-menu').hide();
-	$('#dropdown-customer').toggle();
+	$('#dropdown-commerce').toggle();
 	
 }
 
-function dropContract(){
+function dropImplementation(){
 	$('.dropdown-menu').hide();
-	$('#dropdown-contract').toggle();
+	$('#dropdown-implementation').toggle();
 }
 
 </script>
@@ -39,16 +58,22 @@ function dropContract(){
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" onclick='dropCustomer()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customer <span class="caret"></span></a>
-          <ul class="dropdown-menu" id='dropdown-customer'>
-            <li><a href="#">Add New Customer</a></li>
-            <li><a href="#">View Customer</a></li>
+          <a href="#" class="dropdown-toggle" onclick='dropCommerce()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Commerce <span class="caret"></span></a>
+          <ul class="dropdown-menu" id='dropdown-commerce'>
+            <li><a href="#" onclick='viewCustomer()'>View Customer</a></li>
+            <li><a href="#" onclick='addCustomer()'>Add Customer</a></li>
+			<li role="separator" class="divider"></li>
+			<li><a href="#">View Contract</a></li>
+			<li><a href="#">Add Contract</a></li>
+			<li role="separator" class="divider"></li>
+			<li><a href="#">View Project</a></li>
+			<li></li>
           </ul>
         </li>
 		
 		<li class="dropdown">
-          <a href="#" class="dropdown-toggle" onclick='dropContract()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contract <span class="caret"></span></a>
-          <ul class="dropdown-menu" id='dropdown-contract'>
+          <a href="#" class="dropdown-toggle" onclick='dropImplementation()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contract <span class="caret"></span></a>
+          <ul class="dropdown-menu" id='dropdown-implementation'>
             <li><a href="#">Add New Contract</a></li>
             <li><a href="#">View Contract</a></li>
           </ul>

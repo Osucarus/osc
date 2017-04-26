@@ -2,15 +2,15 @@
 <?php 
 $edit = isset($db);
 if ($edit){
-	$uri = "update";
+	$uri = "/mutakhirkan_customer";
 }else{
-	$uri = "insert";
+	$uri = "/suntik_customer";
 }
 ?>
 $(document).ready(function (){ 
 	$('#submit').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
-		var uri = "<?php echo site_url() . "/customer/" . $uri?>";
+		var uri = "<?php echo site_url().$uri?>";
 		<?php
 		if ($edit){
 			echo "var data_insert = {};";
@@ -21,7 +21,7 @@ $(document).ready(function (){
 		}
 		?>
 		$.post(uri, data_insert, function(data, status){
-			$('#display').html(data); // Dihapus ntar di final
+			$('#konten').load('<?php echo site_url()?>/view_customer');
 		});
 	});	
 		
@@ -41,7 +41,6 @@ $(document).ready(function (){
 			var text = "";
 			for( var i=0; i < 5; i++ )
 				text += possible.charAt(Math.floor(Math.random() * possible.length));
-			
 			$(this).val(text);
 		});
 	}

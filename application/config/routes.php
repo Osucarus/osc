@@ -52,3 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+//=========================================================
+//Routenya Customer
+//=========================================================
+
+$route['view_customer'] = 'Customer/view';
+$route['add_customer'] = 'Customer/form';
+$route['suntik_customer'] = 'Customer/insert';
+$route['mutakhirkan_customer'] = 'Customer/update';

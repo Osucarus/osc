@@ -13,4 +13,15 @@ function classValueToJson(className){
         hasil += "}";
         hasil = JSON.parse(hasil);
         return hasil;
-	}
+}
+
+function classValueToJson2(className,customAttr){
+    var hasil = "{";
+        $(className).each(function(){
+            hasil+= "\""+$(this).attr(customAttr)+"\" : \""+$(this).val()+"\",";
+        });
+        hasil = hasil.slice(',',-1);
+        hasil += "}";
+        hasil = JSON.parse(hasil);
+        return hasil;
+}
