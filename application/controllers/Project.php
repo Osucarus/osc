@@ -11,7 +11,12 @@ class Project extends CI_Controller {
 	}
 	
 	function form(){
-		$this->load->view('Project/project_form', $_POST);
+		$this->load->view('Project/form', $_POST);
+	}
+	
+	function edit_project(){
+		$this->proj->update($_POST);
+		$this->view();
 	}
 	
 	function insert(){
@@ -21,6 +26,11 @@ class Project extends CI_Controller {
 	function view(){
 		$data['db'] = $this->proj->getAll();
 		$this->load->view('Project/table', $data);
+	}
+	
+	function view_radio(){
+		$data['db'] = $this->proj->getAll();
+		$this->load->view('Project/table_radio', $data);
 	}
 	
 	function generate(){

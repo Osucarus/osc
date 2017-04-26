@@ -36,8 +36,10 @@ $(document).ready(function(){
 		// Row counter nambah setelah bisnis nyantolin fungsi selese
 		i++;
 	});
+	
+	$('#table_project').DataTable();
 });
 </script>
 <div id="project_table">
-<?php $this->bs->tableBuilder($db, true);?>
+<?php $this->bs->datatable_edit("table_project", $db);?>
 </div>
