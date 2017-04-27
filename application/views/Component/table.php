@@ -8,7 +8,7 @@ $(document).ready(function(){
 		evt.preventDefault(); // Biar gak ke refresh
 		var uri = "<?php echo site_url() . "/Component/form"?>";
 		$.post(uri, { mode: 1 }, function(data, status){
-			$('body').html(data); 
+			$('#konten').html(data); 
 		});
 	});
 	
@@ -23,7 +23,7 @@ $(document).ready(function(){
 			var uri = "<?php echo site_url() . "/Component/form"?>";
 			var com_id = $(this).attr('realid');
 			$.post(uri, { mode: 2, id: com_id }, function(data, status){
-				$('body').html(data); 
+				$('#konten').html(data); 
 			});
 		});
 	});
@@ -155,7 +155,26 @@ $(document).ready(function(){
 	// General
 	//======================================================================================
 	$('#table_com').DataTable();
+	
+	$('.column-no-1').each(function(){
+		$(this).click(function(evt){ 
+			evt.preventDefault();
+			var aidi = $(this).attr('id');
+			var aidi = aidi.split('-');
+			var aidi = aidi[1];
+			var aidi = "button-"+aidi;
+			var aidi = $('#' + aidi).attr('realid');
+			change_location(aidi);
+		});
+	});
 });
+
+function change_location(com_id){
+	var uri = "<?php echo site_url() . "/Project/view_radio"?>";
+	$.post(uri, {com_id: com_id}, function(data, status){
+		$('#konten').html(data); 
+	});
+}
 </script>
 <?php 
 echo "<div id='ComponentArea' value='$mode'>";
@@ -203,6 +222,9 @@ switch ($mode) {
 		echo "<input type='button' value='Cancel Requests' id='cancel_req'>";
 		$this->bs->datatable_checker('table_com', $db, array("vocab_check" => "Cancel Request"));
 		echo "<input type='button' value='Cancel Request' id='update_button'>";
+		break;
+	case 5: // Project View (read-only)
+		$this->bs->datatable_plain('table_com', $db);
 		break;
 }
 echo "</div>";

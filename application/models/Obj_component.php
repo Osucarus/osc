@@ -17,6 +17,13 @@ class Obj_component extends CI_Model {
 		return $result;
 	}
 	
+	public function getSingle($id, $column = self::TABLE_COLUMN){
+		$kue = "select $column from components where id =  $id";
+		$result = $this->db->query($kue);
+		$result = $result->result();
+		return $result;
+	}
+	
 	// Return = array of objects containing components database
 	public function getAll($column = "*"){
 		$kue = "select $column from components";

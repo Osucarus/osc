@@ -44,6 +44,29 @@ function viewProject(){
 	})
 }
 
+function viewProject2(){
+	$.post('<?php echo site_url();?>/Project/view',{mode: 1},function(data){
+		isiKonten(data);
+	})
+}
+
+function viewComponent(){
+	$.post('<?php echo site_url();?>/Component/view',{mode: 5},function(data){
+		isiKonten(data);
+	})
+}
+
+function viewComponent2(){
+	$.post('<?php echo site_url();?>/Component/view',{mode: 0},function(data){
+		isiKonten(data);
+	})
+}
+
+function addComponent(){
+	$.post('<?php echo site_url();?>/Component/form',{mode: 1},function(data){
+		isiKonten(data);
+	})
+}
 //============================================================
 // User Experience
 //============================================================
@@ -57,6 +80,11 @@ function dropCommerce(){
 function dropImplementation(){
 	$('.dropdown-menu').hide();
 	$('#dropdown-implementation').toggle();
+}
+
+function dropWarehouse(){
+	$('.dropdown-menu').hide();
+	$('#dropdown-warehouse').toggle();
 }
 
 </script>
@@ -78,22 +106,30 @@ function dropImplementation(){
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" onclick='dropCommerce()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Commerce <span class="caret"></span></a>
           <ul class="dropdown-menu" id='dropdown-commerce'>
-            <li><a href="#" onclick='viewCustomer()'>View Customer</a></li>
+            <li><a href="#" onclick='viewCustomer()'>View Customers</a></li>
             <li><a href="#" onclick='addCustomer()'>Add Customer</a></li>
 			<li role="separator" class="divider"></li>
-			<li><a href="#" onclick='viewContract()'>View Contract</a></li>
+			<li><a href="#" onclick='viewContract()'>View Contracts</a></li>
 			<li><a href="#" onclick='addContract()'>Add Contract</a></li>
 			<li role="separator" class="divider"></li>
-			<li><a href="#" onclick='viewProject()'>View Project</a></li>
+			<li><a href="#" onclick='viewProject()'>View Projects</a></li>
 			<li></li>
           </ul>
         </li>
 		
 		<li class="dropdown">
-          <a href="#" class="dropdown-toggle" onclick='dropImplementation()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contract <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" onclick='dropImplementation()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Implementation <span class="caret"></span></a>
           <ul class="dropdown-menu" id='dropdown-implementation'>
-            <li><a href="#">Add New Contract</a></li>
-            <li><a href="#">View Contract</a></li>
+            <li><a href="#" onClick="viewProject2()">View Projects</a></li>
+            <li><a href="#" onClick="viewComponent()">View Components</a></li>
+          </ul>
+        </li>
+		
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" onclick='dropWarehouse()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Warehouse <span class="caret"></span></a>
+          <ul class="dropdown-menu" id='dropdown-warehouse'>
+            <li><a href="#" onClick="viewComponent2()">View Components</a></li>
+            <li><a href="#" onClick="addComponent()">Add new Component</a></li>
           </ul>
         </li>
       </ul>

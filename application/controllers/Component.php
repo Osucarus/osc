@@ -62,7 +62,7 @@ class Component extends CI_Controller {
 	//====================================================================================
 	function view(){
 		$data['db'] = $this->com->getAll();
-		$data['mode'] = 0;
+		$data['mode'] = $_POST['mode'];
 		$this->load->view('Component/table', $data);
 	}
 	
@@ -95,16 +95,19 @@ class Component extends CI_Controller {
 	
 	function add_component(){
 		$this->com->insert($_POST);
+		$_POST['mode'] = 0;
 		$this->view();
 	}
 	
 	function edit_component(){
 		$this->com->update($_POST);
+		$_POST['mode'] = 0;
 		$this->view();
 	}
 	
 	function del_component(){
 		$this->com->del_com($_POST);
+		$_POST['mode'] = 0;
 		$this->view();
 	}
 	

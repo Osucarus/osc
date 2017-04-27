@@ -6,6 +6,7 @@ class Project extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('Obj_project','proj');
+		$this->load->model('Obj_component','com');
 		$this->load->model('Basic','bs');
 		$this->load->view('Loader.php');
 	}
@@ -30,6 +31,8 @@ class Project extends CI_Controller {
 	
 	function view_radio(){
 		$data['db'] = $this->proj->getAll();
+		$data['com_id'] = $_POST['com_id'];
+		$data['com_info'] = $this->com->getSingle($data['com_id'], "*");
 		$this->load->view('Project/table_radio', $data);
 	}
 	

@@ -47,7 +47,7 @@ $(document).ready(function(){
 		data_send['location_id'] = 0;
 		data_send['confirmation'] = 1;
 		$.post(uri, data_send, function(data, status){
-			$('body').html(data);
+			$('#konten').html(data);
 		});
 	}
 	
@@ -60,7 +60,7 @@ $(document).ready(function(){
 			id: com_id
 		};
 		$.post(uri, data_send, function(data, status){
-			$('body').html(data);
+			$('#konten').html(data);
 		});
 	}
 	
@@ -68,7 +68,7 @@ $(document).ready(function(){
 		var uri = "<?php echo site_url() . "/Component/del_component"?>";
 		var com_id = $('#com_id').val();
 		$.post(uri, { id: com_id }, function(data, status){
-			$('body').html(data);
+			$('#konten').html(data);
 		});
 	}
 	
@@ -137,7 +137,7 @@ switch ($mode) {
         echo "Update component";
 };
 ?>' mode='<?php echo "$mode"?>'>
-</td><td><input type='button' onclick="del_com()" id='del_com' value='Delete component' <?php if ($mode != 2) {echo "hidden";}?>></td></tr>
+</td><td></td><td><input type='button' onclick="del_com()" id='del_com' value='Delete component' <?php if ($mode != 2) {echo "hidden";}?>></td></tr>
 <tr><td><input type='button' value='debug mode' id='debug_button' hidden></td></tr>
 </table>
 </form>

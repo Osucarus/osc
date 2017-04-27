@@ -131,7 +131,7 @@ Class Basic extends CI_Model {
 	// -------------------------------------------------------------------------------------------
 	// Plain DataTable Builder (for DataTables.js)
 	// -------------------------------------------------------------------------------------------
-	function datatable_plain($id, $db){
+	function datatable_plain($id, $db, $footer = true){
 		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
 		$i = 0;
 		foreach($db as $d) {
@@ -144,12 +144,16 @@ Class Basic extends CI_Model {
 				
 				echo "</tr></thead>";
 				// Footer
-				echo "<tfoot><tr>";
-				foreach($d as $key => $value){
-					echo "<th>$key</th>";
+				if($footer){
+					echo "<tfoot><tr>";
+					foreach($d as $key => $value){
+						echo "<th>$key</th>";
+					}
+					
+					echo "</tr></tfoot><tbody>";
+				}else{
+					echo "<tbody>";
 				}
-				
-				echo "</tr></tfoot><tbody>";
 
 			}
 			
@@ -331,12 +335,14 @@ Class Basic extends CI_Model {
 		$select = $option['vocab_radio'];
 		
 		echo "<script>\n";
+		echo "var selected_radio = 0;\n";
 		echo "function check_change(n){
 			$('.highlight').each(function(){
 				$(this).removeClass('checked');
 			});
 			if (document.getElementById('radio-' + n).checked) {
 				$('#row-' + n).addClass('checked');
+				selected_radio = $('#radio-' + n).attr('value');
 			};
 		};";
 		echo "</script>\n";
@@ -463,11 +469,11 @@ Class Basic extends CI_Model {
 				if ($j == 0){
 					$no = $i + 1;
 					$actualid = $val;
-					echo "<td id='$key-$i'>$no</td>";
+					echo "<td id='$key-$i' class='column-no-$j'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\"$i\")'></td><td><input type='button' id='button-$i' value='edit' realid='$actualid' class='tombolan'></td><td id='$key-$i'>$val</td>";
+					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\"$i\")'></td><td><input type='button' id='button-$i' value='edit' realid='$actualid' class='tombolan'></td><td id='$key-$i' class='column-no-$j'>$val</td>";
 				}else{
-					echo "<td id='$key-$i'>$val</td>";
+					echo "<td id='$key-$i' class='column-no-$j'>$val</td>";
 				}
 				$j += 1;
 			}
