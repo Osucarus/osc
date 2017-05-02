@@ -5,7 +5,7 @@ $(document).ready(function(){
 	
 	// Iterasi untuk setiap tombol
 	$('.tombol').each(function(){
-		var id = "#edit-" + i;
+		var id = "#tombol-ke-" + i;
 		var colclass = ".isitabel-" + i;
 		
 		// Cantoling fungsi di setiap tombol
@@ -39,5 +39,5 @@ $(document).ready(function(){
 	$('#table_cust').DataTable();
 });
 </script>
-<body><?php $this->bs->dataTableBuilder('table_cust',$db);?>
+<body><?php $this->bs->datatable_edit('table_cust',$db);?>
 </body>

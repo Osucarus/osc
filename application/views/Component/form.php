@@ -64,14 +64,6 @@ $(document).ready(function(){
 		});
 	}
 	
-	function del_com(){
-		var uri = "<?php echo site_url() . "/Component/del_component"?>";
-		var com_id = $('#com_id').val();
-		$.post(uri, { id: com_id }, function(data, status){
-			$('#konten').html(data);
-		});
-	}
-	
 	$('#debug_button').click(function(evt){
 		$('#location_id').prop('disabled', false);
 		$('#debug_row').prop('hidden', false);
@@ -85,7 +77,15 @@ $(document).ready(function(){
 	};
 	?>
 	
-});
+})
+
+function del_com(){
+	var uri = "<?php echo site_url() . "/Component/del_component"?>";
+	var com_id = $('#com_id').val();
+	$.post(uri, { id: com_id }, function(data, status){
+		$('#konten').html(data);
+	});
+};
 </script>
 <form id='component_form'>
 <input type='text' id='com_id' hidden>
@@ -137,7 +137,7 @@ switch ($mode) {
         echo "Update component";
 };
 ?>' mode='<?php echo "$mode"?>'>
-</td><td></td><td><input type='button' onclick="del_com()" id='del_com' value='Delete component' <?php if ($mode != 2) {echo "hidden";}?>></td></tr>
+</td><td></td><td><input type='button' onclick="del_com()" id='delcom' value='Delete component' <?php if ($mode != 2) {echo "hidden";}?>></td></tr>
 <tr><td><input type='button' value='debug mode' id='debug_button' hidden></td></tr>
 </table>
 </form>

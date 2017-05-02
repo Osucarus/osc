@@ -13,8 +13,12 @@ $(document).ready(function(){
 	});
 	
 	// (Warehouse) Confirming the requested item
-	$('#send_button').click(function(){
-		// Later .....
+	$('#send_button').click(function(evt){
+		evt.preventDefault(); // Biar gak ke refresh
+		var uri = "<?php echo site_url() . "/Component/confirm"?>";
+		$.post(uri, { centang: hidden_json }, function(data, status){
+			$('#konten').html(data); 
+		});
 	});
 	
 	$('.tombolan').each(function(){

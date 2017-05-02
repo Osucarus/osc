@@ -18,6 +18,25 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('#contract_proj').click(function(evt){
+		evt.preventDefault(); // Biar gak ke refresh
+		
+		// Create a project
+		if($(this).attr('proj_id') == ""){
+			var uri = "<?php echo site_url() . "/Project/create"?>";
+			$.post(uri, {cont_id: $('#id').val()}, function(data, status){
+				$('#konten').html(data); 
+			});
+			
+		// View projects
+		}else{
+			var uri = "<?php echo site_url() . "/Project/view"?>";
+			$.post(uri, {mode: 0}, function(data, status){
+				$('#konten').html(data); 
+			});
+		}
+	});
+	
 	function updateContract(){
 		var uri = "<?php echo site_url() . "/Contract/update"?>";
 		var data_send = classValueToJson('.inputan');
@@ -71,12 +90,29 @@ $(document).ready(function(){
 <input hidden id="group_id" class="inputan">
 <input hidden id="product_id" class="inputan">
 <input hidden id="service_id" class="inputan">
+<br>
+
+<!-- ############## Create / Update button ############ -->
 <input type="button" value='<?php 
 if($mode == 0){
 	echo "Create new contract";
 } else {
 	echo "Update contract";
 }?>' id="exe_contract">
+
+<!-- ########### View / Issue project button ########### -->
+<input id="contract_proj" type="button" value='<?php 
+if ($mode == 1){
+	if (count($proj) == 1){
+		echo "View Projects";
+	}else{
+		echo "Issue a Project";
+	}
+}
+?>' proj_id='<?php if(isset($proj) && count($proj) == 1) { echo $proj[0]->id; };?>' 
+<?php if ($mode == 0){ echo "hidden"; }?>>
+
+<!-- End of button -->
 </form>
 
 <datalist id="CustomerList">

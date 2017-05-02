@@ -57,6 +57,12 @@ class Component extends CI_Controller {
 		$this->com->updateCancelReq($_POST);
 		$this->requested();
 	}
+	
+	function confirm(){
+		$this->com->updateConfirm($_POST);
+		$_POST['mode'] = 0;
+		$this->view();
+	}
 	//====================================================================================
 	// View Area (All functions here call 'Component/table')
 	//====================================================================================

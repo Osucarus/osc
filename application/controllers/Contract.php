@@ -7,6 +7,7 @@ class Contract extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Basic','bs');
 		$this->load->model('Obj_Contract', 'kontrak');
+		$this->load->model('Obj_Project', 'proj');
 		$this->load->view('Loader.php');
 	}
 	
@@ -14,6 +15,7 @@ class Contract extends CI_Controller {
 		// Mode 1 : Edit mode
 		if ($_POST['mode'] == 1){
 			$_POST['db'] = $this->kontrak->getById($_POST['id']);
+			$_POST['proj'] = $this->proj->getByContract($_POST['id']);
 		}
 		$this->load->view('Contract/form', $_POST);
 	}

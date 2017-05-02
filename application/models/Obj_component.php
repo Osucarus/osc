@@ -75,6 +75,25 @@ class Obj_component extends CI_Model {
 		};
 	}
 	
+	public function updateConfirm($post){
+		foreach ($post['centang'] as $k => $id){
+			$db = $this->getById($id, "status, confirmation");
+			if ($db['status'] == 0 && $db['confirmation'] == 0){
+				$data = array(
+				"data" => array("status" => "3", "confirmation" => "1"),
+				"id" => $id
+				);
+				$this->update($data);
+			}else if($db['status'] == 4 && $db['confirmation'] == 0){
+				$data = array(
+				"data" => array("status" => "0", "confirmation" => "1"),
+				"id" => $id
+				);
+				$this->update($data);
+			};
+		};
+	}
+	
 	public function del_com($data){
 		$id = $data['id'];
 		$kue = "delete from components where id = $id";

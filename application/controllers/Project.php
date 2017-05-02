@@ -20,8 +20,10 @@ class Project extends CI_Controller {
 		$this->view();
 	}
 	
-	function insert(){
-		
+	function create(){
+		$this->proj->insert($_POST['cont_id']);
+		$_POST['mode'] = 0;
+		$this->view();
 	}
 	
 	function view(){

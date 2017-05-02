@@ -7,8 +7,8 @@ class Obj_project extends CI_Model {
 	}
 	
 	// Return = an array containing (key = column name, value = column value)
-	public function getById($id){
-		$kue = "select * from project where id =  $id";
+	public function getById($id, $column = '*'){
+		$kue = "select $column from project where id =  $id";
 		$result = $this->db->query($kue);
 		$result = $result->result();
 		$result = (array) $result[0];
@@ -22,6 +22,15 @@ class Obj_project extends CI_Model {
 		return $result->result();
 	}
 	
+	// Return = an array containing (key = column name, value = column value)
+	public function getByContract($contract_id, $column = '*'){
+		$kue = "select * from project where contract_id = $contract_id";
+		//$kue = "select * from project where contract_id = 9";
+		$result = $this->db->query($kue);
+		$result = $result->result();
+		return $result;
+	}
+	
 	public function update($data){
 		$dbname = 'Project';
 		$arr = $data['data'];
@@ -31,4 +40,9 @@ class Obj_project extends CI_Model {
 		$this->db->query($kue);
 	}
 	
+	public function insert($contract_id){
+		$dbname = 'project';
+		$arr = array("contract_id" => $contract_id, "status" => 0);
+		$this->bs->insertBuilder($dbname,$arr);
+	}
 }
