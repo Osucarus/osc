@@ -17,7 +17,7 @@ class Obj_project extends CI_Model {
 	
 	// Return = array of objects containing customer database
 	public function getAll(){
-		$kue = "select id as pid, contract_id, name, start, finish, note, status from project";
+		$kue = "select id as pid, contract_id, name, start, finish, note, status from project order by date_modified desc";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}

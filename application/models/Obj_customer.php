@@ -18,7 +18,7 @@ class Obj_customer extends CI_Model {
 	
 	// Return = array of objects containing customer database
 	public function getAll(){
-		$kue = "select * from customer";
+		$kue = "select * from customer order by date_modified desc";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}

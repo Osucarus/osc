@@ -26,7 +26,7 @@ class Obj_component extends CI_Model {
 	
 	// Return = array of objects containing components database
 	public function getAll($column = "*"){
-		$kue = "select $column from components";
+		$kue = "select $column from components order by date_modified desc";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}

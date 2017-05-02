@@ -17,7 +17,7 @@ class Obj_contract extends CI_Model {
 	
 	// Return = array of objects containing customer database
 	public function getAll(){
-		$kue = "select * from contract";
+		$kue = "select * from contract order by date_modified desc";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}

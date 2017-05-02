@@ -1,5 +1,6 @@
 <script>
 $(document).ready(function(){
+	$('.datepicker').datepicker();
 	$('#component').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
 		var state = $('#component').attr('state');
@@ -49,8 +50,8 @@ $(document).ready(function(){
 <tr><td>Project ID</td><td>:</td><td><input class='inputanx' type="text" id="pid" disabled></td></tr>
 <tr><td>Contract ID</td><td>:</td><td><input class='inputan' id="contract_id" disabled></td></tr>
 <tr><td>Name</td><td>:</td><td><input class='inputan' type="text" id="name"></td></tr>
-<tr><td>Start</td><td>:</td><td><input class='inputan' type="text" id="start" disabled></td></tr>
-<tr><td>Finish</td><td>:</td><td><input class='inputan' type="text" id="finish" disabled></td></tr>
+<tr><td>Start</td><td>:</td><td><input class='inputan datepicker' type="text" id="start"></td></tr>
+<tr><td>Finish</td><td>:</td><td><input class='inputan datepicker' type="text" id="finish"></td></tr>
 <tr><td>Status</td><td>:</td><td><select class='inputan' id="status">
 <option value="0">Not started</option>
 <option value="1">On going</option>
