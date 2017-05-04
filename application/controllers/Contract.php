@@ -8,6 +8,7 @@ class Contract extends CI_Controller {
 		$this->load->model('Basic','bs');
 		$this->load->model('Obj_Contract', 'kontrak');
 		$this->load->model('Obj_Project', 'proj');
+		$this->load->model('Obj_Customer', 'customer');
 		$this->load->view('Loader.php');
 	}
 	
@@ -17,6 +18,7 @@ class Contract extends CI_Controller {
 			$_POST['db'] = $this->kontrak->getById($_POST['id']);
 			$_POST['proj'] = $this->proj->getByContract($_POST['id']);
 		}
+		$_POST['custom'] = $this->customer->getDatalist();
 		$this->load->view('Contract/form', $_POST);
 	}
 	
@@ -32,6 +34,11 @@ class Contract extends CI_Controller {
 	
 	function update(){
 		$this->kontrak->update($_POST);
+		$this->view();
+	}
+	
+	function delete(){
+		$this->kontrak->del($_POST);
 		$this->view();
 	}
 	

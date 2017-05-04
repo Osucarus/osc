@@ -22,16 +22,27 @@ $(document).ready(function(){
 	
 	$('#edit_proj').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
-		var uri = "<?php echo site_url() . "/Project/edit_project"?>";
-		var data_send = classValueToJson('.inputan');
-		var pid = $('#pid').val();
-		var data_insert = {
-			data: data_send,
-			id: pid
-		};
-		$.post(uri, data_insert, function(data, status){
-			$('body').html(data); 
-		});
+		
+		if($('#delproj').is(":checked")){
+			if(confirm("Are you sure want to delete this project?")){
+				var uri = "<?php echo site_url() . "/Project/del_project"?>";
+				var data_send = {id: $('#pid').val()};
+				$.post(uri, data_insert, function(data, status){
+					$('#konten').html(data); 
+				});
+			}
+		}else{
+			var uri = "<?php echo site_url() . "/Project/edit_project"?>";
+			var data_send = classValueToJson('.inputan');
+			var pid = $('#pid').val();
+			var data_insert = {
+				data: data_send,
+				id: pid
+			};
+			$.post(uri, data_insert, function(data, status){
+				$('#konten').html(data); 
+			});
+		}
 	});
 	
 	<?php
@@ -58,6 +69,7 @@ $(document).ready(function(){
 <option value="2">Finished</option></td></tr>
 <tr><td>Note</td><td>:</td><td><textarea class='inputan' id='note' rows="6" cols="75"></textarea></td></tr>
 <tr><td>Upload file report</td><td>:</td><td><input class='inputanx' type="file" id="file"></td></tr>
+<tr height=25><td>Delete project</td><td>:</td><td><input type='checkbox' id='delproj'></td></tr>
 <tr><td><input id="edit_proj" type="button" value="Update"></td><td></td><td><input id="component" type="button" value="Show components" state="0"></td></tr>
 </table>
 </form>

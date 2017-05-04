@@ -23,6 +23,10 @@ class Obj_customer extends CI_Model {
 		return $result->result();
 	}
 	
+	public function getDatalist(){
+		$kue = "select (id || '-' || name ) as data_customer from customer";
+		return $this->db->query($kue)->result();
+	}
 	/*public function get_customer_all(){
 		$kueri = "select name as nama, address as alamat from Customers";
 		$hasil = $this->bas->tableBuilder2('tabel_customer',$kueri);

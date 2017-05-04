@@ -1,5 +1,9 @@
 <?php $this->load->view('Loader'); ?>
+<style>
+.dropdown-header{ display:none }
 
+#konten { height:100% }
+</style>
 <script>
 $(document).ready(function(){
 	
@@ -10,7 +14,7 @@ $(document).ready(function(){
 //===============================================================
 
 function isiKonten(isi){
-	$('.dropdown-menu').hide(); // Hilangin menu dropdownnya
+	$('.dropdown-header').hide(); // Hilangin menu dropdownnya
 	$('#konten').html(isi);		// Isi kontennya
 }
 
@@ -72,19 +76,23 @@ function addComponent(){
 //============================================================
 
 function dropCommerce(){
-	$('.dropdown-menu').hide();
+	$('.dropdown-header').hide();
 	$('#dropdown-commerce').toggle();
 	
 }
 
 function dropImplementation(){
-	$('.dropdown-menu').hide();
+	$('.dropdown-header').hide();
 	$('#dropdown-implementation').toggle();
 }
 
 function dropWarehouse(){
-	$('.dropdown-menu').hide();
+	$('.dropdown-header').hide();
 	$('#dropdown-warehouse').toggle();
+}
+
+function tutup_menu(){
+	$('.dropdown-header').hide();
 }
 
 </script>
@@ -105,7 +113,7 @@ function dropWarehouse(){
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" onclick='dropCommerce()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Commerce <span class="caret"></span></a>
-          <ul class="dropdown-menu" id='dropdown-commerce'>
+          <ul class="dropdown-menu dropdown-header" id='dropdown-commerce'>
             <li><a href="#" onclick='viewCustomer()'>View Customers</a></li>
             <li><a href="#" onclick='addCustomer()'>Add Customer</a></li>
 			<li role="separator" class="divider"></li>
@@ -119,7 +127,7 @@ function dropWarehouse(){
 		
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" onclick='dropImplementation()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Implementation <span class="caret"></span></a>
-          <ul class="dropdown-menu" id='dropdown-implementation'>
+          <ul class="dropdown-menu dropdown-header" id='dropdown-implementation'>
             <li><a href="#" onClick="viewProject2()">View Projects</a></li>
             <li><a href="#" onClick="viewComponent()">View Components</a></li>
           </ul>
@@ -127,7 +135,7 @@ function dropWarehouse(){
 		
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" onclick='dropWarehouse()' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Warehouse <span class="caret"></span></a>
-          <ul class="dropdown-menu" id='dropdown-warehouse'>
+          <ul class="dropdown-menu dropdown-header" id='dropdown-warehouse'>
             <li><a href="#" onClick="viewComponent2()">View Components</a></li>
             <li><a href="#" onClick="addComponent()">Add new Component</a></li>
           </ul>
@@ -137,4 +145,4 @@ function dropWarehouse(){
   </div><!-- /.container-fluid -->
 </nav>
 
-<div id='konten'></div>
+<div id='konten' onclick="tutup_menu()"></div>

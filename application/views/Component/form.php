@@ -80,11 +80,13 @@ $(document).ready(function(){
 })
 
 function del_com(){
-	var uri = "<?php echo site_url() . "/Component/del_component"?>";
-	var com_id = $('#com_id').val();
-	$.post(uri, { id: com_id }, function(data, status){
-		$('#konten').html(data);
-	});
+	if(confirm("Are you sure want to delete this component?")){
+		var uri = "<?php echo site_url() . "/Component/del_component"?>";
+		var com_id = $('#com_id').val();
+		$.post(uri, { id: com_id }, function(data, status){
+			$('#konten').html(data);
+		});
+	}
 };
 </script>
 <form id='component_form'>
