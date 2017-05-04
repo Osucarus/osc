@@ -1,5 +1,6 @@
 <script>
 $(document).ready(function(){
+	$('#judul').html("Project table");
 	// Row counter
 	var i = 0;
 	
@@ -21,8 +22,10 @@ $(document).ready(function(){
 				var mentah = $(this).attr('id');
 				var dipotong = mentah.split('-');
 				var key = dipotong[0];
-				if(key == 'pid'){
-					data_db['db'][key] = $(this).attr('actualid');
+				if(key == 'no'){
+					data_db['db']['pid'] = $(this).attr('actualid');
+				}else if(key == 'contract'){
+					data_db['db']['contract_id'] = /(\d+)-.*/.exec($(this).html())[1];
 				}else{
 					data_db['db'][key] = $(this).html();
 				}

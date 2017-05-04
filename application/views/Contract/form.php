@@ -5,6 +5,7 @@
 }?>
 <script>
 $(document).ready(function(){
+	$('#judul').html("Contract form");
 	$('#exe_contract').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
 		var suichi = $('#contract_form').attr('mode');
@@ -86,10 +87,13 @@ $(document).ready(function(){
 	}
 	?>
 	
-	var new_val = $('#period').val();
-	new_val = /(\d+)\s+.*/i.exec(new_val)[1];
-	$('#period').val(new_val);
+	if ($('#contract_form').attr('mode') == 1){
+		var new_val = $('#period').val();
+		new_val = /(\d+)\s+.*/i.exec(new_val)[1];
+		$('#period').val(new_val);
+	}
 	
+	$('#rfs').datepicker();
 })
 </script>
 
@@ -107,8 +111,9 @@ $(document).ready(function(){
 <tr><td>Access (In/Out)</td><td>:</td><td><input class='inputan' type="text" id="bw_access"></td></tr>
 <tr><td>CIR (In/Out)</td><td>:</td><td><input class='inputan' type="text" id="bw_cir"></td></tr>
 <tr><td>Burst (In/Out)</td><td>:</td><td><input class='inputan' type="text" id="bw_burst"></td></tr>
-<tr><td>RFS</td><td>:</td><td><input class='inputan' type="text" id="rfs"></td></tr>
+<tr><td>RFS</td><td>:</td><td><input class='inputan datepicker' type="text" id="rfs"></td></tr>
 <tr><td>Contract Period</td><td>:</td><td><input class="inputan" type="text" id="period"></td></tr>
+<tr><td>Remarks</td><td>:</td><td><textarea class="inputan" id="remarks" rows="6" cols="45"></textarea></td></tr>
 </table>
 <input hidden id="id" class="inputanx">
 <input hidden id="customer_id" class="inputan">

@@ -106,7 +106,7 @@ function tutup_menu(){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="#">AJN OSC</a>
   </div>
   
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -144,5 +144,5 @@ function tutup_menu(){
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+<div><h3 id='judul'></h3></div>
 <div id='konten' onclick="tutup_menu()"></div>

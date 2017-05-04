@@ -1,5 +1,7 @@
 <script>
 $(document).ready(function(){
+	$('#judul').html("Customer Table");
+	
 	// Row counter
 	var i = 0;
 	

@@ -1,5 +1,6 @@
 <script>
 $(document).ready(function(){
+	$('#judul').html("Contract table");
 	$('.tombol').each(function(){
 		$(this).click(function(evt){
 			evt.preventDefault(); // Biar gak ke refresh

@@ -6,6 +6,7 @@ Mode 2 : Edit component. To edit the information or delete a component. (Accesse
 -->
 <script>
 $(document).ready(function(){
+	$('#judul').html("Component form");
 	console.log($('#exe_button'));
 	
 	$('#exe_button').click(function(evt){

@@ -1,5 +1,6 @@
 <script>
 $(document).ready(function(){
+	$('#judul').html("");
 	$('#button_change').click(function(evt){
 		evt.preventDefault();
 		var uri = "<?php echo site_url() . "/Component/edit_component"?>";
