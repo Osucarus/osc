@@ -71,6 +71,18 @@ function addComponent(){
 		isiKonten(data);
 	})
 }
+
+function piar(){
+	$.post('<?php echo site_url();?>/Navigation/piar',{mode: 1},function(data){
+		isiKonten(data);
+	})
+}
+
+function coba(){
+	$.post('<?php echo site_url();?>/Navigation/coba',{mode: 1},function(data){
+		isiKonten(data);
+	})
+}
 //============================================================
 // User Experience
 //============================================================
@@ -130,7 +142,9 @@ function tutup_menu(){
           <ul class="dropdown-menu dropdown-header" id='dropdown-implementation'>
             <li><a href="#" onClick="viewProject2()">View Projects</a></li>
             <li><a href="#" onClick="viewComponent()">View Components</a></li>
-          </ul>
+			<li><a href="#" onClick="piar()">Purchase Requisition</a></li>
+			<li><a href="#" onClick='coba()'>Coba</a></li>
+		  </ul>
         </li>
 		
 		<li class="dropdown">
