@@ -142,9 +142,11 @@ function tutup_menu(){
           <ul class="dropdown-menu dropdown-header" id='dropdown-implementation'>
             <li><a href="#" onClick="viewProject2()">View Projects</a></li>
             <li><a href="#" onClick="viewComponent()">View Components</a></li>
+			<li role="separator" class="divider"></li>
 			<li><a href="#" onClick="piar()">Purchase Requisition</a></li>
 			<li><a href="#" onClick='coba()'>Coba</a></li>
-		  </ul>
+          </ul>
+
         </li>
 		
 		<li class="dropdown">
@@ -158,5 +160,5 @@ function tutup_menu(){
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div><h3 id='judul'></h3></div>
+<div onclick="tutup_menu()" width=100%><h3 id='judul'></h3></div>
 <div id='konten' onclick="tutup_menu()"></div>

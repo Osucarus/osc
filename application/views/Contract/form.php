@@ -33,7 +33,7 @@ $(document).ready(function(){
 		// View projects
 		}else{
 			var uri = "<?php echo site_url() . "/Project/view"?>";
-			$.post(uri, {mode: 0}, function(data, status){
+			$.post(uri, {mode: 0, contract_id: $('#id').val()}, function(data, status){
 				$('#konten').html(data); 
 			});
 		}
@@ -69,10 +69,9 @@ $(document).ready(function(){
 	function addContract(){
 		var uri = "<?php echo site_url() . "/Contract/insert"?>";
 		var data_send = classValueToJson('.inputan');
-		data_send.period = data_send.period + ' years';
+		data_send.period = data_send.period;
 		data_send.customer_id = /(\d+)-.*/.exec(data_send.customer_id2)[1];
 		delete data_send['customer_id2'];
-		console.log(data_send);
 		$.post(uri, data_send, function(data, status){
 			$('#konten').html(data); 
 		});

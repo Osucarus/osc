@@ -9,8 +9,8 @@ class Obj_component extends CI_Model {
 	}
 	
 	// Return = an array containing (key = column name, value = column value)
-	public function getById($id, $column = self::TABLE_COLUMN){
-		$kue = "select $column from components where id =  $id";
+	public function getById($id, $from = "components", $column = self::TABLE_COLUMN){
+		$kue = "select $column from $from where id = $id";
 		$result = $this->db->query($kue);
 		$result = $result->result();
 		$result = (array) $result[0];
@@ -18,7 +18,7 @@ class Obj_component extends CI_Model {
 	}
 	
 	public function getSingle($id, $column = self::TABLE_COLUMN){
-		$kue = "select $column from components where id =  $id";
+		$kue = "select $column from view_components where id =  $id";
 		$result = $this->db->query($kue);
 		$result = $result->result();
 		return $result;
@@ -26,19 +26,19 @@ class Obj_component extends CI_Model {
 	
 	// Return = array of objects containing components database
 	public function getAll($column = "*"){
-		$kue = "select com.id, com.location_id, pr.name as project_name, com.name, com.description, com.nominal, com.nominal_measure, com.type_id, com.serial_number, com.status, com.confirmation, com.date_modified from components com, project pr where com.location_id = pr.id order by date_modified desc";
+		$kue = "select $column from view_components";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}
 	
 	public function getByProjId($projId, $column = "*"){
-		$kue = "select $column from components where location_id = $projId";
+		$kue = "select $column from view_components where location_id = $projId";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}
 	
 	public function getAvailable($column = "*"){
-		$kue = "select $column from components where location_id = 0 and status = 0 and confirmation = 1";
+		$kue = "select $column from available_components";
 		return $this->db->query($kue)->result();
 	}
 	
@@ -77,7 +77,7 @@ class Obj_component extends CI_Model {
 	
 	public function updateConfirm($post){
 		foreach ($post['centang'] as $k => $id){
-			$db = $this->getById($id, "status, confirmation");
+			$db = $this->getById($id, "components", "status, confirmation");
 			if ($db['status'] == 0 && $db['confirmation'] == 0){
 				$data = array(
 				"data" => array("status" => "3", "confirmation" => "1"),
@@ -101,12 +101,32 @@ class Obj_component extends CI_Model {
 	}
 	
 	public function getAllRequestedByProjId($id){
-		$kue = "select * from components where location_id = $id and (status = 0 or status = 2) and confirmation = 0";
+		$kue = "select * from view_components where location_id = $id and (status = 0 or status = 2) and confirmation = 0";
 		return $this->db->query($kue)->result();
 	}
 	
 	public function insert($post){
 		$kue = $this->bs->insertBuilder('components', $post);
 		$this->db->query($kue);
+	}
+	
+	public function getReqCount(){
+		$kue = "select count(*) as jumlah from requested_components";
+		return $this->db->query($kue)->result()[0];
+	}
+	
+	public function getDismantleCount(){
+		$kue = "select count(*) as jumlah from dismantle_components";
+		return $this->db->query($kue)->result()[0];
+	}
+	
+	public function getAllRequested(){
+		$kue = "select * from requested_components";
+		return $this->db->query($kue)->result();
+	}
+	
+	public function getAllDismantle(){
+		$kue = "select * from dismantle_components";
+		return $this->db->query($kue)->result();
 	}
 }

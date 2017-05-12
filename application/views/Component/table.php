@@ -106,7 +106,6 @@ $(document).ready(function(){
 	$('#request_exist').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
 		var uri = "<?php echo site_url() . "/Component/available"?>";
-		var pid = $('#pid').val();
 		$.post(uri, {}, function(data, status){
 			$('#display').html(data); 
 		});
@@ -156,6 +155,30 @@ $(document).ready(function(){
 			$('#display').html(data); 
 		});
 	});
+	
+	$('#notif_req').click(function(evt){
+		evt.preventDefault(); // Biar gak ke refresh
+		var uri = "<?php echo site_url() . "/Component/allRequested"?>";
+		$.post(uri, {}, function(data, status){
+			$('#konten').html(data); 
+		});
+	});
+	
+	$('#notif_dis').click(function(evt){
+		evt.preventDefault(); // Biar gak ke refresh
+		var uri = "<?php echo site_url() . "/Component/allDismantle"?>";
+		$.post(uri, {}, function(data, status){
+			$('#konten').html(data); 
+		});
+	});
+	
+	$('#show_all').click(function(evt){
+		evt.preventDefault(); // Biar gak ke refresh
+		var uri = "<?php echo site_url() . "/Component/view"?>";
+		$.post(uri, {mode: 0}, function(data, status){
+			$('#konten').html(data); 
+		});
+	});
 	//======================================================================================
 	// General
 	//======================================================================================
@@ -186,9 +209,11 @@ echo "<div id='ComponentArea' value='$mode'>";
 switch ($mode) {
 	case 0: // Warehouse view (Initial)
 		echo "<input type='button' value='Add new component' id='add_new'>";
-		echo "<input type='button' value='Send component' id='send_button'>";
-		echo "<div style='float: right'><input type='button' value='Notif Dismantle' id='confirmation'>";
-		echo "<input type='button' value='Notif Request' id='confirmation'></div>";
+		echo "<input type='button' value='Confirm components' id='send_button'>";
+		$jumlah = $notif_dis->jumlah;
+		echo "<div style='float: right'><input type='button' value='Notif Dismantle($jumlah)' id='notif_dis'>";
+		$jumlah = $notif_req->jumlah;
+		echo "<input type='button' value='Notif Request($jumlah)' id='notif_req'></div>";
 		$this->bs->datatable_edit_and_check('table_com', $db);
 		break;
 	case 1: // Project view (Dismantle state)
@@ -230,6 +255,11 @@ switch ($mode) {
 		break;
 	case 5: // Project View (read-only)
 		$this->bs->datatable_plain('table_com', $db);
+		break;
+	case 6: // View Notif (belom kelar)
+		echo "<input type='button' value='Confirm components' id='send_button'>";
+		echo "<input type='button' value='Show all components' id='show_all' style='float: right'>";
+		$this->bs->datatable_edit_and_check('table_com', $db);
 		break;
 }
 echo "</div>";

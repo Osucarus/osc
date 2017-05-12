@@ -158,9 +158,17 @@ Class Basic extends CI_Model {
 			}
 			
 			// Isi
+			$j = 0;
 			echo "<tr>";
 			foreach($d as $key => $val){
-				echo "<td class='isitabel-$i' id='$key-$i' aidi='$key'>$val</td>";
+				if ($j == 0){
+					$no = $i + 1;
+					$actualid = $val;
+					echo "<td class='isitabel-$i' id='$key-$i' actualid='$actualid'>$no</td>";
+				}else{
+					echo "<td class='isitabel-$i' id='$key-$i' aidi='$key'>$val</td>";
+				}
+				$j += 1;
 			}
 			echo"</tr>";
 			$i += 1;

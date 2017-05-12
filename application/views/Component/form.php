@@ -95,21 +95,24 @@ function del_com(){
 <table>
 <tr><td>Type</td><td>:</td><td><select class='input_com' id="type_id">
 	<?php 
-	$comtype = array("Component A", "Component B", "Component C", "Component D"); // Nanti diganti pake Master data
-	foreach($comtype as $index => $type){
-		echo "<option value='$index'>$type</option>\n";
+	$comtype = $this->db->query("select * from master_comtype")->result();
+	foreach($comtype as $type){
+		$id = $type->id;
+		$name = $type->name;
+		echo "<option value='$id'>$name</option>\n";
 	}
 	?>
-	<option value="o">Other</option>
 </select>
 </td></tr>
 <?php 
 // (Project) When sumbiting request, setting status is unable. Status will always be 'requested'
 if ($mode != 0){
 	echo "<tr><td>Status</td><td>:</td><td><select class='input_com' id='status'>";
-	$status = array('Avaliable', 'Broken', 'Requested', 'Installed', 'Dismantle'); // Nanti diganti pake Master data
-	foreach($status as $index => $type){
-		echo "<option value='$index'>$type</option>\n";
+	$ms = $this->db->query("select * from master_status")->result();
+	foreach($ms as $status){
+		$id = $status->id;
+		$name = $status->name;
+		echo "<option value='$id'>$name</option>\n";
 	}
 	echo "</select>
 	</td></tr>";

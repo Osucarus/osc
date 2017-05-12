@@ -7,7 +7,7 @@ class Obj_project extends CI_Model {
 	}
 	
 	// Return = an array containing (key = column name, value = column value)
-	public function getById($id, $column = '*'){
+	public function getById($id, $column = 'id as pid, *'){
 		$kue = "select $column from project where id =  $id";
 		$result = $this->db->query($kue);
 		$result = $result->result();
@@ -17,7 +17,7 @@ class Obj_project extends CI_Model {
 	
 	// Return = array of objects containing customer database
 	public function getAll(){
-		$kue = "select pj.id as no, (pj.contract_id || '-' || ct.name) as contract, pj.name, pj.start, pj.finish, pj.note, pj.status from project pj, contract ct where pj.contract_id = ct.id order by pj.date_modified desc";
+		$kue = "select * from view_project";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}
@@ -36,6 +36,15 @@ class Obj_project extends CI_Model {
 		$arr = $data['data'];
 		$id = $data['id'];
 		$where = "id = $id";
+		$kue = $this->bs->updateBuilder($dbname, $arr, $where);
+		$this->db->query($kue);
+	}
+	
+	public function updateDate($data){
+		$dbname = 'Project';
+		$arr = $data['data'];
+		$id = $data['contract_id'];
+		$where = "contract_id = $id";
 		$kue = $this->bs->updateBuilder($dbname, $arr, $where);
 		$this->db->query($kue);
 	}

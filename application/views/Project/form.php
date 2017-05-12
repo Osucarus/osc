@@ -65,9 +65,15 @@ $(document).ready(function(){
 <tr><td>Start</td><td>:</td><td><input class='inputan datepicker' type="text" id="start"></td></tr>
 <tr><td>Finish</td><td>:</td><td><input class='inputan datepicker' type="text" id="finish"></td></tr>
 <tr><td>Status</td><td>:</td><td><select class='inputan' id="status">
-<option value="0">Not started</option>
-<option value="1">On going</option>
-<option value="2">Finished</option></td></tr>
+<?php 
+$mps = $this->db->query("select * from master_project_status")->result();
+foreach($mps as $status){
+	$id = $status->id;
+	$name = $status->name;
+	echo "<option value='$id'>$name</option>";
+}
+?></select>
+</td></tr>
 <tr><td>Note</td><td>:</td><td><textarea class='inputan' id='note' rows="6" cols="75"></textarea></td></tr>
 <tr <?php if ($db['pid'] == 0) { echo "hidden";}; ?>><td>Upload file report</td><td>:</td><td><input class='inputanx' type="file" id="file"></td></tr>
 <tr height=25 <?php if ($db['pid'] == 0) { echo "hidden";}; ?>><td>Delete project</td><td>:</td><td><input type='checkbox' id='delproj'></td></tr>

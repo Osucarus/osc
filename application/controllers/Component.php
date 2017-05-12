@@ -69,6 +69,8 @@ class Component extends CI_Controller {
 	function view(){
 		$data['db'] = $this->com->getAll();
 		$data['mode'] = $_POST['mode'];
+		$data['notif_req'] = $this->com->getReqCount();
+		$data['notif_dis'] = $this->com->getDismantleCount();
 		$this->load->view('Component/table', $data);
 	}
 	
@@ -92,6 +94,18 @@ class Component extends CI_Controller {
 	function requested(){
 		$data['db'] = $this->com->getAllRequestedByProjId($_POST['proj_id']);
 		$data['mode'] = 4;
+		$this->load->view('Component/table', $data);
+	}
+	
+	function allRequested(){
+		$data['db'] = $this->com->getAllRequested();
+		$data['mode'] = 6;
+		$this->load->view('Component/table', $data);
+	}
+	
+	function allDismantle(){
+		$data['db'] = $this->com->getAllDismantle();
+		$data['mode'] = 6;
 		$this->load->view('Component/table', $data);
 	}
 	
