@@ -18,7 +18,7 @@ class Obj_contract extends CI_Model {
 	// Return = array of objects containing customer database
 	// (note: argument unused)
 	public function getAll($column = ""){
-		$kue = "select ct.id, ct.id as contract_id, (ct.customer_id || '-' || cs.name) as customer, ct.name, ct.group_id, ct.product_id, ct.service_id, ct.origin, ct.destination, ct.tao, ct.connection, ct.bw_access, ct.bw_cir, ct.bw_burst, ct.remarks, ct.period, ct.rfs, ct.status, ct.date_modified from contract ct, customer cs where ct.customer_id = cs.id order by ct.date_modified desc";
+		$kue = "select * from view_contract";
 		$result = $this->db->query($kue);
 		return $result->result();
 	}

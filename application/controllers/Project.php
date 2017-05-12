@@ -12,7 +12,8 @@ class Project extends CI_Controller {
 	}
 	
 	function form(){
-		$this->load->view('Project/form', $_POST);
+		$data['db'] = $this->proj->getById($_POST['id']);
+		$this->load->view('Project/form', $data);
 	}
 	
 	function edit_project(){
@@ -28,6 +29,10 @@ class Project extends CI_Controller {
 	}
 	
 	function view(){
+		if (isset($_POST['contract_id'])){
+			$_POST['data'] = array("date_modified" => "now()");
+			$this->proj->updateDate($_POST);
+		}
 		$_POST['db'] = $this->proj->getAll();
 		$this->load->view('Project/table', $_POST);
 	}
