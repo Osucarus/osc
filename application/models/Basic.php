@@ -195,7 +195,9 @@ Class Basic extends CI_Model {
 				$j = 0;
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
-					if ($j == 1){
+					if ($j == 0){
+						echo "<th>No.</th>";
+					}else if ($j == 1){
 						echo "<th>Edit</th><th>$key</th>";
 					}else{
 						echo "<th>$key</th>";
@@ -206,7 +208,9 @@ Class Basic extends CI_Model {
 				echo "<tfoot><tr>";
 				$j = 0;
 				foreach($d as $key => $value){
-					if ($j == 1){
+					if ($j == 0){
+						echo "<th>No.</th>";
+					}else if ($j == 1){
 						echo "<th>Edit</th><th>$key</th>";
 					}else{
 						echo "<th>$key</th>";
@@ -281,7 +285,9 @@ Class Basic extends CI_Model {
 				$j = 0;
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
-						if ($j == 1){
+						if ($j == 0){
+							echo "<th>No.</th>";
+						}else if ($j == 1){
 							echo "<th class='check_label'>$check</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
@@ -294,7 +300,9 @@ Class Basic extends CI_Model {
 				$j = 0;
 				echo "<tfoot><tr>";
 				foreach($d as $key => $value){
-						if ($j == 1){
+						if ($j == 0){
+							echo "<th>No.</th>";
+						}else if ($j == 1){
 							echo "<th class='check_label'>$check</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
@@ -361,7 +369,9 @@ Class Basic extends CI_Model {
 				$j = 0;
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
-						if ($j == 1){
+						if ($j == 0){
+							echo "<th>No.</th>";
+						}else if ($j == 1){
 							echo "<th>$select</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
@@ -374,7 +384,9 @@ Class Basic extends CI_Model {
 				$j = 0;
 				echo "<tfoot><tr>";
 				foreach($d as $key => $value){
-						if ($j == 1){
+						if ($j == 0){
+							echo "<th>No.</th>";
+						}else if ($j == 1){
 							echo "<th>$select</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";
@@ -411,10 +423,9 @@ Class Basic extends CI_Model {
 		echo "<table id='$id' class='table table-striped' style='border: 1px solid black'>";
 		$i = 0;
 		
-		$default = array( "highlight" => "gray", "vocab_check" => "Check", "vocab_edit" => "Edit" );
+		$default = array( "vocab_check" => "Check", "vocab_edit" => "Edit" );
 		$option = array_merge($default, $option);
 		
-		$highlight = $option['highlight'];
 		$check = $option['vocab_check'];
 		$edit = $option['vocab_edit'];
 		
@@ -437,7 +448,9 @@ Class Basic extends CI_Model {
 				$j = 0;
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
-						if ($j == 1){
+						if ($j == 0){
+							echo "<th class='header-no-$j'>No.</th>";
+						}else if ($j == 1){
 							echo "<th class='check-column'>$check</th><th class='edit-column'>$edit</th><th class='header-no-$j'>$key</th>";
 						}else{
 							echo "<th class='header-no-$j'>$key</th>";
@@ -450,7 +463,9 @@ Class Basic extends CI_Model {
 				$j = 0;
 				echo "<tfoot><tr>";
 				foreach($d as $key => $value){
-						if ($j == 1){
+						if ($j == 0){
+							echo "<th>No.</th>";
+						}else if ($j == 1){
 							echo "<th>$check</th><th>$edit</th><th>$key</th>";
 						}else{
 							echo "<th>$key</th>";

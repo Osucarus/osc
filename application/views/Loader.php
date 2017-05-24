@@ -69,7 +69,7 @@ input[type=text]:focus {
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-	background-color: #D3B100;
+	background-color: #4765A4;
 	border-color: #0C358D;
 }
 
