@@ -6,6 +6,7 @@ class Navigation extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		//$this->load->view('Loader');
+		session_start();
 	}
 	
 	function index(){

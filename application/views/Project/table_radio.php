@@ -1,6 +1,6 @@
 <script>
 $(document).ready(function(){
-	$('#judul').html("Project table");
+	$('#judul').html("Change component location");
 	$('#button_change').click(function(evt){
 		evt.preventDefault();
 		var uri = "<?php echo site_url() . "/Component/edit_component"?>";
@@ -23,8 +23,8 @@ $(document).ready(function(){
 <?php
 	$this->bs->datatable_plain('com_info', $com_info, false);
 ?>
-<br><input type='button' value='Change location' id='button_change' com_id='<?php echo $com_id ?>'><br>
-<strong>Project table</strong>
+<br><input class="tombolan" type='button' value='Change location' id='button_change' com_id='<?php echo $com_id ?>'>
+<div style="font-size:17px;"><strong>Project table</strong></div>
 <?php 
 	$this->bs->datatable_radio('table_proj_radio', $db);
 ?>
