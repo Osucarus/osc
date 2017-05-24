@@ -39,57 +39,69 @@ function onGanti(x){
 	x.setAttribute('value',x.value);
 }
 
-function jajal(){
-	var isi = $('#scope_list').html();
-	console.log(isi);
+function addVendor(){
+	isi = "<li><input onchange='onGanti(this)' class='vendor'/></li>";
+	$('#vendor_list').append(isi);
+}
+
+function insertDB(){
+	isi = {
+		pq_no : $('#pq_no').val(),
+		pq_date : $('#pq_date').val(),
+		pq_job_desc : $('#pq_job_desc').val(),
+		pq_form : $('#pq_form').html(),
+		pq_date_modified : "'now()'";
+	}
+	$.post('<?php site_url()?>/Component/insert_pq',isi,function(data){
+		$('#has').html();
+	})
 }
 </script>
 
-<button onclick='jajal()'>&nbsp;</button>
+<div id='has'></div>
 
-<div class='angket'>
+<div class='angket' id='pq_form'>
 <div>
 <label for='pq_no'>No.</label><br>
-<input id='pq_no' class='inputan'/>
+<input id='pq_no' class='inputan' onchange='onGanti(this)'/>
 </div>
 
 <div>
 <label for='pq_date'>Date / Tanggal</label><br>
-<input id='pq_date' type='date' class='inputan'/>
+<input id='pq_date' type='date' class='inputan' onchange='onGanti(this)'/>
 </div>
 
 <div>
 <label for='pq_date_req'>Required Date / Tanggal Dibutuhkan</label><br>
-<input id='pq_date_req' class='inputan'/>
+<input id='pq_date_req' class='inputan' onchange='onGanti(this)'/>
 </div>
 
 <div>
 <label for='pq_destination'>Destination / Tempat Tujuan</label><br>
-<input id='pq_destination' class='inputan'/>
+<input id='pq_destination' class='inputan' onchange='onGanti(this)'/>
 </div>
 
 <div>
 <label for='pq_job_no'>Job no.</label><br>
-<input id='pq_job_no' class='inputan'/>
+<input id='pq_job_no' class='inputan' onchange='onGanti(this)'/>
 </div>
 
 <div>
 <label for='pq_job_desc'>Job Description / Deskripsi Kerja</label><br>
-<textarea id='pq_job_desc' cols='100' rows='5' class='inputan'></textarea>
+<textarea id='pq_job_desc' cols='100' rows='5' class='inputan' onchange='onGanti(this)'></textarea>
 </div>
 
 <div>
 <label for='pq_acc_no'>Acc No.</label><br>
-<input id='pq_acc_no' class='inputan'/>
+<input id='pq_acc_no' class='inputan' onchange='onGanti(this)'/>
 </div>
 
 <div>
 <label>Suggested Vendor (if any) / Pemasuk yang diusulkan (jika ada)</label><br>
-<ul>
-	<li><input id='pq_vendor-1' class='vendor'/></li>
-	<li><input id='pq_vendor-2' class='vendor'/></li>
-	<li><input id='pq_vendor-3' class='vendor'/></li>
+<ul id='vendor_list'>
+	<li><input onchange='onGanti(this)' class='vendor'/></li>
 </ul>
+<button onclick='addVendor()'>Add Vendor</button>
 </div>
 
 <div>
@@ -171,6 +183,6 @@ Description / Uraian
 <label>Alokasi Anggaran:</label><br>
 <input id='pq_aloc_budget' class='inputan'/>
 </div>
+</div>
 
 <button>Submit</button>
-</div>

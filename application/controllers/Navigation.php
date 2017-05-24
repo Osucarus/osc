@@ -17,19 +17,7 @@ class Navigation extends CI_Controller {
 	}
 	
 	function coba(){
-		echo "<script>
-		
-			var jeson1 = {nama : 'Ardhi' , alamat : 'Jakarta'};
-			var jeson2 = {kantor : 'AJN' , hape : '085334240488'}
-		
-		
-		function mergeClick(){
-			console.log(asu(jeson1,jeson2));
-		}
-		</script>
-		
-		<button onclick='mergeClick()'>Aegis Merge</button>";
+		$this->load->view('coba');
 	}
-
 }
 ?>
