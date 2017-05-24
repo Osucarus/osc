@@ -130,6 +130,28 @@ class Obj_component extends CI_Model {
 		return $this->db->query($kue)->result();
 	}
 	
+	/*
+	=========================================================================================
+	Purchase Requisitions Model
+	=========================================================================================
+	*/
+	
+	public function insertPurchaseRequest($data){
+		$cek = $this->bas->hasRow('Select 1 from purchase_requisition where pq_no = \'$data[pq_no]\'');
+		if ($cek){
+			$kueri = $this->bas->insertBuilder($data);
+			$this->db->query($kueri);
+		} else {
+			$kueri = $this->bas->updateBuilder('purchase_requisitions',$data,'pq_no = $data[pq_no]');
+			$this->db->query($kueri);
+		}
+	}
+	
+	public function updatePurchaseRequest($data){
+		$kueri = $this->bas->updateBuilder('purchase_requisitions',$data,'pq_no = $data[pq_no]');
+		$this->db->query($kueri);
+	}
+	
 	public function getMaster(){
 		$kue = "select * from master_comtype order by id";
 		return $this->db->query($kue)->result();
@@ -149,3 +171,4 @@ class Obj_component extends CI_Model {
 		$this->db->query($kue);
 	}
 }
+?>

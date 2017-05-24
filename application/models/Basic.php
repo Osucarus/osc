@@ -84,6 +84,16 @@ Class Basic extends CI_Model {
 		}
         return $res;
     }
+	
+	function hasRow($kueri){
+		$oke = $this->db->query($kueri)->num_rows();
+		
+		if($oke >= 1){
+			return true;
+		} else {
+			return false;
+		}
+	}
 	// -------------------------------------------------------------------------------------------
 	// Table Builder
 	// -------------------------------------------------------------------------------------------

@@ -180,5 +180,29 @@ class Component extends CI_Controller {
 		$kue = $this->bs->updateBuilder($dbname, $arr);
 		echo $kue;
 	}
+	
+	
+	/*
+	========================================================================================
+	Purchase Requisition Controllers
+	========================================================================================
+	*/
+	
+	function purchase_requisition(){
+		
+	}
+	
+	function insert_pq(){
+		var_dump($_POST);
+	}
+	
+	function update_pq(){
+		
+	}
+	
+	function edit_pq(){
+		
+	}
+	
 }
 ?>
