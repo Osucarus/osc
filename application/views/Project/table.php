@@ -2,7 +2,7 @@
 $(document).ready(function(){
 	$('#judul').html("Project table");
 	
-	$('.tombol').each(function(){
+	$('.table_button').each(function(){
 		$(this).click(function(evt){
 			evt.preventDefault(); // Biar gak ke refresh
 			var uri = "<?php echo site_url() . "/Project/form"?>";

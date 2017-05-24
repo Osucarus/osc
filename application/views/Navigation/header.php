@@ -6,7 +6,9 @@
 </style>
 <script>
 $(document).ready(function(){
-	
+	$.post('<?php echo site_url();?>/Auth/login',{},function(data){
+		isiKonten(data);
+	})
 });
 
 //===============================================================
@@ -72,6 +74,12 @@ function addComponent(){
 	})
 }
 
+function masterCom(){
+	$.post('<?php echo site_url();?>/Component/view_master',{},function(data){
+		isiKonten(data);
+	})
+}
+
 function piar(){
 	$.post('<?php echo site_url();?>/Navigation/piar',{mode: 1},function(data){
 		isiKonten(data);
@@ -109,7 +117,7 @@ function tutup_menu(){
 
 </script>
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
+  <div class="container-fluid" style="background-color: #4765A4" id="kepala">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -118,7 +126,7 @@ function tutup_menu(){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">AJN OSC</a>
+      <a class="navbar-brand" href="#" style="color: white">AJN OSC</a>
   </div>
   
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -154,6 +162,8 @@ function tutup_menu(){
           <ul class="dropdown-menu dropdown-header" id='dropdown-warehouse'>
             <li><a href="#" onClick="viewComponent2()">View Components</a></li>
             <li><a href="#" onClick="addComponent()">Add new Component</a></li>
+			<li role="separator" class="divider"></li>
+			<li><a href="#" onClick="masterCom()">Master component type</a></li>
           </ul>
         </li>
       </ul>

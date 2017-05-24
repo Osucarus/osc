@@ -101,7 +101,7 @@ class Obj_component extends CI_Model {
 	}
 	
 	public function getAllRequestedByProjId($id){
-		$kue = "select * from view_components where location_id = $id and (status = 0 or status = 2) and confirmation = 0";
+		$kue = "select * from requested_components where location_id = $id";
 		return $this->db->query($kue)->result();
 	}
 	
@@ -128,5 +128,24 @@ class Obj_component extends CI_Model {
 	public function getAllDismantle(){
 		$kue = "select * from dismantle_components";
 		return $this->db->query($kue)->result();
+	}
+	
+	public function getMaster(){
+		$kue = "select * from master_comtype order by id";
+		return $this->db->query($kue)->result();
+	}
+	
+	public function changeMaster($post){
+		$dbname = 'master_comtype';
+		$arr = array("name" => $post['name']);
+		$id = $post['id'];
+		$where = "id = $id";
+		$kue = $this->bs->updateBuilder($dbname, $arr, $where);
+		$this->db->query($kue);
+	}
+	
+	public function addMaster($post){
+		$kue = $this->bs->insertBuilder('master_comtype', $post);
+		$this->db->query($kue);
 	}
 }

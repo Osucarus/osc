@@ -1,9 +1,9 @@
 <script>
 $(document).ready(function(){
 	$('#judul').html("Project form");
-	$('.datepicker').datepicker();
 	$('#component').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
+		$('.modal').show();
 		var state = $('#component').attr('state');
 		if (state == 0){
 			$('#component').prop('value','Hide Components');
@@ -57,13 +57,47 @@ $(document).ready(function(){
 	
 });
 </script>
+<style>
+#div_form {
+	background-color: white;
+    width: 90%;
+	height: auto;
+    border: 2px double #0C358D;
+	border-radius: 16px;
+    margin-left: auto;
+    margin-right: auto;
+	padding: 25px;
+}
+
+#ComponentArea {
+	background-color: white;
+    width: 100%;
+	height: auto;
+    border: 2px double #0C358D;
+	border-radius: 16px;
+    margin-left: auto;
+    margin-right: auto;
+	padding: 5px;
+}
+
+#judul {
+    text-align: center;
+	margin-bottom: 12px;
+}
+
+td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+</style>
+<div id="div_form">
 <form id='project_form'>
 <table>
 <tr><td>Project ID</td><td>:</td><td><input class='inputanx' type="text" id="pid" disabled></td></tr>
 <tr><td>Contract ID</td><td>:</td><td><input class='inputan' id="contract_id" disabled></td></tr>
 <tr><td>Name</td><td>:</td><td><input class='inputan' type="text" id="name"></td></tr>
-<tr><td>Start</td><td>:</td><td><input class='inputan datepicker' type="text" id="start"></td></tr>
-<tr><td>Finish</td><td>:</td><td><input class='inputan datepicker' type="text" id="finish"></td></tr>
+<tr><td>Start</td><td>:</td><td><input class='inputan datepicker' type="date" id="start"></td></tr>
+<tr><td>Finish</td><td>:</td><td><input class='inputan datepicker' type="date" id="finish"></td></tr>
 <tr><td>Status</td><td>:</td><td><select class='inputan' id="status">
 <?php 
 $mps = $this->db->query("select * from master_project_status")->result();
@@ -74,10 +108,11 @@ foreach($mps as $status){
 }
 ?></select>
 </td></tr>
-<tr><td>Note</td><td>:</td><td><textarea class='inputan' id='note' rows="6" cols="75"></textarea></td></tr>
+<tr><td>Note</td><td>:</td><td><textarea class='inputan' id='note' rows="6" cols="120%"></textarea></td></tr>
 <tr <?php if ($db['pid'] == 0) { echo "hidden";}; ?>><td>Upload file report</td><td>:</td><td><input class='inputanx' type="file" id="file"></td></tr>
 <tr height=25 <?php if ($db['pid'] == 0) { echo "hidden";}; ?>><td>Delete project</td><td>:</td><td><input type='checkbox' id='delproj'></td></tr>
-<tr><td><input id="edit_proj" type="button" value="Update"></td><td></td><td><input id="component" type="button" value="Show components" state="0" <?php if ($db['pid'] == 0) { echo "hidden";}; ?>></td></tr>
+<tr><td><input class="tombolan" id="edit_proj" type="button" value="Update"></td><td></td><td><input id="component" type="button" value="Show components" state="0" class="tombolan <?php if ($db['pid'] == 0) { echo " hidden";}; ?>"></td></tr>
 </table>
 </form>
+</div>
 <div id="display"></div>

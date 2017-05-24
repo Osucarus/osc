@@ -1,13 +1,11 @@
 <?php if($mode == 0){
-	echo "<title>Create contract</title>";
-	$judul = "Create new contract";
+	echo "<title>Insert mode</title>";
 } else {
-	echo "<title>Update contract</title>";
-	$judul = "Update contract";
+	echo "<title>Update mode</title>";
 }?>
 <script>
 $(document).ready(function(){
-	$('#judul').html("<?php echo $judul;?>");
+	$('#judul').html("Contract form");
 	$('#exe_contract').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
 		var suichi = $('#contract_form').attr('mode');
@@ -102,8 +100,7 @@ $(document).ready(function(){
 #konten {
 	background-color: white;
     width: 80%;
-	height: auto;
-    border: 2px double #0C358D;
+    border: 1px double green;
 	border-radius: 16px;
     margin-left: auto;
     margin-right: auto;
@@ -114,30 +111,25 @@ $(document).ready(function(){
     text-align: center;
 	margin-bottom: 12px;
 }
-
-td {
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
 </style>
 
 <form id='contract_form' mode='<?php echo $mode?>'>
 <table>
-<tr><td>Customer ID</td><td class='tdinput'><input class='inputan' list="CustomerList" id="customer_id2" placeholder="Select customer"></td></tr>
-<tr><td>Site Name</td><td class='tdinput'><input class='inputan' type="text" id="name"></td></tr>
-<tr><td>Origin</td><td class='tdinput'><input class='inputan' type="text" id="origin"></td></tr>
-<tr><td>Destination</td><td class='tdinput'><input class='inputan' type="text" id="destination"></td></tr>
-<tr><td>Group ID</td><td class='tdinput'><input class='aidi' type="text" id="group" disabled></td></tr>
-<tr><td>Product ID</td><td class='tdinput'><input class='aidi' type="text" id="product" disabled></td></tr>
-<tr><td>Service ID</td><td class='tdinput'><input class='aidi' type="text" id="service" disabled></td></tr>
-<tr><td>Technical Authorized Officer</td><td class='tdinput'><input class='inputan' type="text" id="tao"></td></tr>
-<tr><td>Connection Type</td><td class='tdinput'><input class='inputan' type="text" id="connection"></td></tr>
-<tr><td>Access (In/Out)</td><td class='tdinput'><input class='inputan' type="text" id="bw_access"></td></tr>
-<tr><td>CIR (In/Out)</td><td class='tdinput'><input class='inputan' type="text" id="bw_cir"></td></tr>
-<tr><td>Burst (In/Out)</td><td class='tdinput'><input class='inputan' type="text" id="bw_burst"></td></tr>
-<tr><td>RFS</td><td class='tdinput'><input class='inputan' type="date" id="rfs"></td></tr>
-<tr><td>Contract Period</td><td class='tdinput'><input class="inputan" type="text" id="period" placeholder="Write in month(s)"></td></tr>
-<tr><td>Remarks</td><td class='tdinput'><textarea class="inputan" id="remarks" rows="6" cols="100%"></textarea></td></tr>
+<tr><td>Customer ID</td><td>:</td><td><input class='inputan' list="CustomerList" id="customer_id2"></td></tr>
+<tr><td>Site Name</td><td>:</td><td><input class='inputan' type="text" id="name"></td></tr>
+<tr><td>Origin</td><td>:</td><td><input class='inputan' type="text" id="origin"></td></tr>
+<tr><td>Destination</td><td>:</td><td><input class='inputan' type="text" id="destination"></td></tr>
+<tr><td>Group ID</td><td>:</td><td><input class='aidi' type="text" id="group" disabled></td></tr>
+<tr><td>Product ID</td><td>:</td><td><input class='aidi' type="text" id="product" disabled></td></tr>
+<tr><td>Service ID</td><td>:</td><td><input class='aidi' type="text" id="service" disabled></td></tr>
+<tr><td>Technical Authorized Officer</td><td>:</td><td><input class='inputan' type="text" id="tao"></td></tr>
+<tr><td>Connection Type</td><td>:</td><td><input class='inputan' type="text" id="connection"></td></tr>
+<tr><td>Access (In/Out)</td><td>:</td><td><input class='inputan' type="text" id="bw_access"></td></tr>
+<tr><td>CIR (In/Out)</td><td>:</td><td><input class='inputan' type="text" id="bw_cir"></td></tr>
+<tr><td>Burst (In/Out)</td><td>:</td><td><input class='inputan' type="text" id="bw_burst"></td></tr>
+<tr><td>RFS</td><td>:</td><td><input class='inputan' type="date" id="rfs"></td></tr>
+<tr><td>Contract Period</td><td>:</td><td><input class="inputan" type="text" id="period"></td></tr>
+<tr><td>Remarks</td><td>:</td><td><textarea class="inputan" id="remarks" rows="6" cols="45"></textarea></td></tr>
 </table>
 <input hidden id="id" class="inputanx">
 <input hidden id="customer_id" class="inputan">
@@ -159,7 +151,7 @@ if($mode == 0){
 <input class="tombolan<?php if ($mode == 0){ echo " hidden"; }?>" type="button" value='Delete contract' id="del_contract">
 
 <!-- ########### View / Issue project button ########### -->
-<input class="tombolan<?php if ($mode == 0){ echo " hidden"; }?>" id="contract_proj" type="button" value='<?php 
+<input id="contract_proj" type="button" value='<?php 
 if ($mode == 1){
 	if (count($proj) == 1){
 		echo "View Projects";
@@ -167,7 +159,8 @@ if ($mode == 1){
 		echo "Issue a Project";
 	}
 }
-?>' proj_id='<?php if(isset($proj) && count($proj) == 1) { echo $proj[0]->id; };?>'>
+?>' proj_id='<?php if(isset($proj) && count($proj) == 1) { echo $proj[0]->id; };?>' 
+<?php if ($mode == 0){ echo "hidden"; }?>>
 
 <!-- End of button -->
 </form>

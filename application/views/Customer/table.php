@@ -6,7 +6,7 @@ $(document).ready(function(){
 	var i = 0;
 	
 	// Iterasi untuk setiap tombol
-	$('.tombol').each(function(){
+	$('.tombolan').each(function(){
 		var id = "#tombol-ke-" + i;
 		var colclass = ".isitabel-" + i;
 		

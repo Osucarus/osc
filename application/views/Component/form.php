@@ -6,8 +6,17 @@ Mode 2 : Edit component. To edit the information or delete a component. (Accesse
 -->
 <script>
 $(document).ready(function(){
-	$('#judul').html("Component form");
-	console.log($('#exe_button'));
+	switch($('#exe_button').attr('mode')){
+		case "0":
+			$('#judul2').html("<strong>Request component form</strong>");
+			break;
+		case "1":
+			$('#judul').html("Add New Component");
+			break;
+		case "2":
+			$('#judul').html("Edit Component");
+			break;
+	}
 	
 	$('#exe_button').click(function(evt){
 		evt.preventDefault(); // Biar gak ke refresh
@@ -90,12 +99,35 @@ function del_com(){
 	}
 };
 </script>
+<style>
+#konten {
+	background-color: white;
+    width: 80%;
+	height: auto;
+    border: 2px double #0C358D;
+	border-radius: 16px;
+    margin-left: auto;
+    margin-right: auto;
+	padding: 25px;
+}
+
+#judul {
+    text-align: center;
+	margin-bottom: 12px;
+}
+
+td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+</style>
+<div style="text-align: center; font-size: 16px" id="judul2"></div>
 <form id='component_form'>
-<input type='text' id='com_id' hidden>
+<input type='text' id='com_id' class='hidden'>
 <table>
-<tr><td>Type</td><td>:</td><td><select class='input_com' id="type_id">
+<tr><td>Type</td><td class='tdinput'><select class='input_com' id="type_id">
 	<?php 
-	$comtype = $this->db->query("select * from master_comtype")->result();
+	$comtype = $this->db->query("select * from master_comtype order by id")->result();
 	foreach($comtype as $type){
 		$id = $type->id;
 		$name = $type->name;
@@ -107,7 +139,7 @@ function del_com(){
 <?php 
 // (Project) When sumbiting request, setting status is unable. Status will always be 'requested'
 if ($mode != 0){
-	echo "<tr><td>Status</td><td>:</td><td><select class='input_com' id='status'>";
+	echo "<tr><td>Status</td><td class='tdinput'><select class='input_com' id='status'>";
 	$ms = $this->db->query("select * from master_status")->result();
 	foreach($ms as $status){
 		$id = $status->id;
@@ -117,20 +149,33 @@ if ($mode != 0){
 	echo "</select>
 	</td></tr>";
 }
-
+?>
+<tr><td>Role</td><td class='tdinput'><select class='input_com' id="role">
+	<?php 
+	$role = $this->db->query("select * from master_role order by id")->result();
+	foreach($role as $type){
+		$id = $type->id;
+		$name = $type->name;
+		echo "<option value='$id'>$name</option>\n";
+	}
+	?>
+</select>
+</td></tr>
+<?php
 // Edit mode will be able to see location id but can't change it
 if ($mode == 2){
-	echo "<tr><td>Location</td><td>:</td><td><input class='input_com' type='text' id='location_id' disabled></td></tr>";
-	echo "<tr id='debug_row' hidden><td>Confirmation</td><td>:</td><td><input class='input_com' type='text' id='confirmation'></td></tr>";
+	echo "<tr><td>Location</td><td class='tdinput'><input class='input_com' type='text' id='location_id' disabled></td></tr>";
+	echo "<tr id='debug_row' hidden><td>Confirmation</td><td><input class='input_com' type='text' id='confirmation'></td></tr>";
 };
 ?>
-<tr><td>Serial Number</td><td>:</td><td><input class='input_com' type='text' id='serial_number'></td></tr>
-<tr><td>Name</td><td>:</td><td><input class='input_com' id="name"></td></tr>
-<tr><td>Nominal</td><td>:</td><td><input class='input_com' id="nominal"></td></tr>
-<tr><td>Measure</td><td>:</td><td><input class='input_com' id="nominal_measure"></td></tr>
-<tr><td>Description</td><td>:</td><td><textarea rows="6" cols="75" id="description" class='input_com'>
+<tr><td>PO Number</td><td class='tdinput'><input class='input_com' type='text' id='po_number'></td></tr>
+<tr><td>Serial Number</td><td class='tdinput'><input class='input_com' type='text' id='serial_number'></td></tr>
+<tr><td>Name</td><td class='tdinput'><input class='input_com' id="name"></td></tr>
+<tr><td>Nominal</td><td class='tdinput'><input class='input_com' id="nominal"></td></tr>
+<tr><td>Measure</td><td class='tdinput'><input class='input_com' id="nominal_measure"></td></tr>
+<tr><td>Description</td><td class='tdinput'><textarea rows="6" cols="106%" id="description" class='input_com'>
 </textarea></td></tr>
-<tr><td><input type='button' id='exe_button' value='
+<tr><td><input type='button' class='tombolan' id='exe_button' value='
 <?php 
 switch ($mode) {
     case 0: // Request new component
@@ -143,8 +188,8 @@ switch ($mode) {
         echo "Update component";
 };
 ?>' mode='<?php echo "$mode"?>'>
-</td><td></td><td><input type='button' onclick="del_com()" id='delcom' value='Delete component' <?php if ($mode != 2) {echo "hidden";}?>></td></tr>
-<tr><td><input type='button' value='debug mode' id='debug_button' hidden></td></tr>
+</td><td class='tdinput'><input type='button' class='tombolan<?php if ($mode != 2) {echo " hidden";}?>' onclick="del_com()" id='delcom' value='Delete component'></td></tr>
+<tr><td class='tdinput'><input type='button' value='debug mode' id='debug_button' hidden></td></tr>
 </table>
 </form>
 <div id='debug_div'></div>

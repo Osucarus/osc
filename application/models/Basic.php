@@ -227,7 +227,7 @@ Class Basic extends CI_Model {
 					$actualid = $val;
 					echo "<td class='isitabel-$i' id='$key-$i' actualid='$actualid'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><button class='tombol' id='tombol-ke-$i' actualid='$actualid'>Edit</button><td class='isitabel-$i' id='$key-$i'>$val</td>";
+					echo "<td><button class='table_button tombolan' id='tombol-ke-$i' actualid='$actualid'>Edit</button><td class='isitabel-$i' id='$key-$i'>$val</td>";
 				}else{
 					echo "<td class='isitabel-$i' id='$key-$i'>$val</td>";
 				}
@@ -274,11 +274,6 @@ Class Basic extends CI_Model {
 			};
 		};";
 		echo "</script>\n";
-		echo "<style>
-		table.dataTable .checked {
-			background-color: $highlight;
-		}
-		</style>";
 		foreach($db as $d) {
 			if ($i == 0){
 				
@@ -435,11 +430,6 @@ Class Basic extends CI_Model {
 			};
 		};";
 		echo "</script>\n";
-		echo "<style>
-		table.dataTable .checked {
-			background-color: $highlight;
-		}
-		</style>";
 		foreach($db as $d) {
 			if ($i == 0){
 				
@@ -448,9 +438,9 @@ Class Basic extends CI_Model {
 				echo "<thead><tr>";
 				foreach($d as $key => $value){
 						if ($j == 1){
-							echo "<th>$check</th><th>$edit</th><th>$key</th>";
+							echo "<th class='check-column'>$check</th><th class='edit-column'>$edit</th><th class='header-no-$j'>$key</th>";
 						}else{
-							echo "<th>$key</th>";
+							echo "<th class='header-no-$j'>$key</th>";
 						}
 						$j += 1;
 					}
@@ -479,7 +469,7 @@ Class Basic extends CI_Model {
 					$actualid = $val;
 					echo "<td id='$key-$i' class='column-no-$j'>$no</td>";
 				}else if ($j == 1){
-					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\"$i\")'></td><td><input type='button' id='button-$i' value='edit' realid='$actualid' class='tombolan'></td><td id='$key-$i' class='column-no-$j'>$val</td>";
+					echo "<td><input id='check-$i' type='checkbox' value='$actualid' class='checkbox' onchange='check_change(\"$i\")'></td><td><input type='button' id='button-$i' value='Edit' realid='$actualid' class='table_button tombolan'></td><td id='$key-$i' class='column-no-$j'>$val</td>";
 				}else{
 					echo "<td id='$key-$i' class='column-no-$j'>$val</td>";
 				}

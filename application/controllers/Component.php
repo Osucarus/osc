@@ -19,6 +19,20 @@ class Component extends CI_Controller {
 		$this->load->view('Component/form', $_POST);
 	}
 	
+	function view_master(){
+		$data['db'] = $this->com->getMaster();
+		$this->load->view('Component/table_master', $data);
+	}
+	
+	function change_master_type(){
+		$this->com->changeMaster($_POST);
+	}
+	
+	function add_master_type(){
+		$this->com->addMaster($_POST);
+		$this->view_master();
+	}
+	
 	//====================================================================================
 	// Operations
 	//====================================================================================
@@ -92,7 +106,8 @@ class Component extends CI_Controller {
 	// Show all requested component (location_id != 0, status == 0 OR 2, confirmation == 0)
 	// Mode = 4: Cancel request
 	function requested(){
-		$data['db'] = $this->com->getAllRequestedByProjId($_POST['proj_id']);
+		//$data['db'] = $this->com->getAllRequestedByProjId($_POST['proj_id']);
+		$data['db'] = $this->com->getAllRequestedByProjId(203);
 		$data['mode'] = 4;
 		$this->load->view('Component/table', $data);
 	}

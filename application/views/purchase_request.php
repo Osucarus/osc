@@ -5,7 +5,7 @@
 }
 
 .tabelku td{
-	padding: 0px 10px 0px 10px;
+	padding: 5px 10px 5px 10px;
 	text-align: center;
 }
 
@@ -20,9 +20,27 @@
 .angket {
 	padding: 0px 10px 0px 10px;
 }
+
+#ulvendor>li {
+	margin: 2px;
+}
+
+#konten {
+	background-color: white;
+    width: 80%;
+	height: auto;
+    border: 2px double #0C358D;
+	border-radius: 16px;
+    margin-left: auto;
+    margin-right: auto;
+	padding: 25px;
+}
 </style>
 
 <script>
+$(document).ready(function(){
+	$("#judul").html("");
+})
 var counter = 2;
 function tambahUraian(){
 	isi = "<tr><td>"+counter+"</td><td><textarea class='pq_desc' cols='50' onchange='onGanti(this)'></textarea></td><td><input size='3' onchange='onGanti(this)'/></td><td><input size='3' /><td><input type='text' onchange='onGanti(this)'/></td></td>";
@@ -45,8 +63,8 @@ function jajal(){
 }
 </script>
 
-<button onclick='jajal()'>&nbsp;</button>
-
+<button onclick='jajal()' hidden>&nbsp;</button>
+<div style="text-align: center; font-size: 17px"><strong>Purchase Requisition</strong></div>
 <div class='angket'>
 <div>
 <label for='pq_no'>No.</label><br>
@@ -85,7 +103,7 @@ function jajal(){
 
 <div>
 <label>Suggested Vendor (if any) / Pemasuk yang diusulkan (jika ada)</label><br>
-<ul>
+<ul id="ulvendor">
 	<li><input id='pq_vendor-1' class='vendor'/></li>
 	<li><input id='pq_vendor-2' class='vendor'/></li>
 	<li><input id='pq_vendor-3' class='vendor'/></li>
@@ -122,7 +140,7 @@ function jajal(){
 </div>
 
 <div>
-Description / Uraian
+<label>Description / Uraian</label>
 <span></span>
 <table id='tabel_uraian' class='tabelku'>
 	<thead>
@@ -133,7 +151,7 @@ Description / Uraian
 		<tr><td>1</td><td style='width:25%'><textarea class='pq_desc' cols='50' onchange='onGanti(this)'></textarea></td><td><input size='3' onchange='onGanti(this)'/></td><td><input size='3' onchange='onGanti(this)'/></td><td><input type='text' onchange='onGanti(this)'/></td></tr>
 	</tbody>
 </table>
-<button onclick='tambahUraian()'>Add Description<br>Tambah Uraian</button>
+<button onclick='tambahUraian()' class='tombolan'>Add Description<br>Tambah Uraian</button>
 </div>
 
 <div>
@@ -146,7 +164,7 @@ Description / Uraian
 <ul id='scope_list' class='inputan_daftar'>
 	<li><input class='pq_scope' onchange='onGanti(this)'/></li>
 </ul>
-<button onclick='tambahSekop()'>Add scope<br>Tambah Scope</button>
+<button onclick='tambahSekop()' class='tombolan'>Add scope<br>Tambah Scope</button>
 </div>
 
 <div>
@@ -172,5 +190,5 @@ Description / Uraian
 <input id='pq_aloc_budget' class='inputan'/>
 </div>
 
-<button>Submit</button>
+<button class='tombolan' style="margin: 2px">Submit</button>
 </div>
